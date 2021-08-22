@@ -1,0 +1,149 @@
+Linux version 2.2.25 (root@freehom2) (gcc version egcs-2.91.66 19990314/Linux (egcs-1.1.2 release)) #1 Sun Feb 29 16:19:46 MSK 2004
+BIOS-provided physical RAM map:
+ BIOS-e820: 0009f000 @ 00000000 (usable)
+ BIOS-e820: 03f00000 @ 00100000 (usable)
+Detected 208269 kHz processor.
+Console: colour VGA+ 80x25
+Calibrating delay loop... 416.15 BogoMIPS
+Memory: 62888k/65536k available (1252k kernel code, 412k reserved, 916k data, 68k init)
+Dentry hash table entries: 8192 (order 4, 64k)
+Buffer cache hash table entries: 65536 (order 6, 256k)
+Page cache hash table entries: 16384 (order 4, 64k)
+VFS: Diskquotas version dquot_6.4.0 initialized
+Intel old style machine check architecture supported.
+Intel old style machine check reporting enabled on CPU#0.
+CPU: Intel Pentium MMX stepping 03
+Checking 386/387 coupling... OK, FPU using exception 16 error reporting.
+Checking 'hlt' instruction... OK.
+Intel Pentium with F0 0F bug - workaround enabled.
+POSIX conformance testing by UNIFIX
+PCI: PCI BIOS revision 2.10 entry at 0xf0510
+PCI: Using configuration type 1
+PCI: Probing PCI hardware
+Linux NET4.0 for Linux 2.2
+Based upon Swansea University Computer Society NET3.039
+NET4: Unix domain sockets 1.0 for Linux NET4.0.
+NET4: Linux TCP/IP 1.0 for NET4.0
+IP Protocols: ICMP, UDP, TCP, IGMP
+TCP: Hash tables configured (ehash 65536 bhash 65536)
+Initializing RT netlink socket
+Starting kswapd v 1.5 
+Detected PS/2 Mouse Port.
+pty: 256 Unix98 ptys configured
+Real Time Clock Driver v1.09
+RAM disk driver initialized:  16 RAM disks of 4096K size
+loop: registered device at major 7
+PIIX4: IDE controller on PCI bus 00 dev 09
+PIIX4: not 100% native mode: will probe irqs later
+    ide0: BM-DMA at 0xe000-0xe007, BIOS settings: hda:DMA, hdb:pio
+    ide1: BM-DMA at 0xe008-0xe00f, BIOS settings: hdc:DMA, hdd:DMA
+hda: FUJITSU MPF3102AT, ATA DISK drive
+hdc: WDC AC28400R, ATA DISK drive
+hdd: Pioneer CD-ROM ATAPI Model DR-A10X 0100, ATAPI CDROM drive
+ide0 at 0x1f0-0x1f7,0x3f6 on irq 14
+ide1 at 0x170-0x177,0x376 on irq 15
+hda: FUJITSU MPF3102AT, 9773MB w/512kB Cache, CHS=1245/255/63
+hdc: WDC AC28400R, 8063MB w/512kB Cache, CHS=16383/16/63
+hdd: ATAPI 10X CD-ROM drive, 128kB Cache
+Uniform CD-ROM driver Revision: 3.11
+Floppy drive(s): fd0 is 1.44M
+FDC 0 is a post-1991 82077
+tulip.c:v0.91g-ppc 7/16/99 becker@cesdis.gsfc.nasa.gov
+eth0: Digital DC21041 Tulip rev 17 at 0xd400, 00:80:48:E8:7B:BB, IRQ 10.
+eth0: 21041 Media table, default media 0800 (Autosense).
+eth0:  21041 media #0, 10baseT.
+eth0:  21041 media #1, 10base2.
+eth0:  21041 media #2, AUI.
+eth0:  21041 media #4, 10baseT-FD.
+Partition check:
+ hda: hda1 hda2 < hda5 hda6 hda7 hda8 hda9 hda10 hda11 > hda3! < hda12 hda13 hda14 hda15 >
+ hdc: [PTBL] [1027/255/63] hdc1 hdc2! hdc3 hdc4 < hdc5 hdc6 >
+apm: BIOS version 1.2 Flags 0x0b (Driver version 1.13)
+usb.c: registered new driver usbdevfs
+usb.c: registered new driver hub
+usb-uhci.c: $Revision: 1.237 $ time 16:23:04 Feb 29 2004
+usb-uhci.c: High bandwidth mode enabled
+usb-uhci.c: USB UHCI at I/O 0xd800, IRQ 11
+usb-uhci.c: Detected 2 ports
+usb.c: new USB bus registered, assigned bus number 1
+usb.c: USB new device connect, assigned device number 1
+usb.c: kmalloc IF c3edd040, numif 1
+usb.c: new device strings: Mfr=0, Product=2, SerialNumber=1
+usb.c: USB device number 1 default language ID 0x0
+Product: USB UHCI Root Hub
+SerialNumber: d800
+hub.c: USB hub found
+hub.c: 2 ports detected
+hub.c: standalone hub
+hub.c: ganged power switching
+hub.c: global over-current protection
+hub.c: power on to power good time: 2ms
+hub.c: hub controller current requirement: 0mA
+hub.c: port removable status: RR
+hub.c: local power source is good
+hub.c: no over-current condition exists
+hub.c: enabling power on all ports
+usb.c: hub driver claimed interface c3edd040
+usb.c: call_policy add, num 1 -- no FS yet
+NTFS version 000607
+hub.c: port 2 connection change
+hub.c: port 2, portstatus 101, change 1, 12 Mb/s
+VFS: Mounted root (ext2 filesystem) readonly.
+Freeing unused kernel memory: 68k freed
+hub.c: port 2, portstatus 103, change 0, 12 Mb/s
+hub.c: USB new device connect on bus1/2, assigned device number 2
+usb.c: USB new device connect, assigned device number 2
+usb.c: kmalloc IF c3edd300, numif 1
+usb.c: new device strings: Mfr=0, Product=0, SerialNumber=0
+usb.c: unhandled interfaces on device
+usb.c: USB device 2 (vend/prod 0x1491/0x20) is not claimed by any active driver.
+  Length              = 18
+  DescriptorType      = 01
+  USB version         = 1.00
+  Vendor:Product      = 1491:0020
+  MaxPacketSize0      = 64
+  NumConfigurations   = 1
+  Device version      = 0.01
+  Device Class:SubClass:Protocol = 00:00:00
+    Per-interface classes
+Configuration:
+  bLength             =    9
+  bDescriptorType     =   02
+  wTotalLength        = 0020
+  bNumInterfaces      =   01
+  bConfigurationValue =   01
+  iConfiguration      =   00
+  bmAttributes        =   80
+  MaxPower            =  100mA
+
+  Interface: 0
+  Alternate Setting:  0
+    bLength             =    9
+    bDescriptorType     =   04
+    bInterfaceNumber    =   00
+    bAlternateSetting   =   00
+    bNumEndpoints       =   02
+    bInterface Class:SubClass:Protocol =   ff:00:00
+    iInterface          =   00
+    Endpoint:
+      bLength             =    7
+      bDescriptorType     =   05
+      bEndpointAddress    =   02 (out)
+      bmAttributes        =   02 (Bulk)
+      wMaxPacketSize      = 0008
+      bInterval           =   00
+    Endpoint:
+      bLength             =    7
+      bDescriptorType     =   05
+      bEndpointAddress    =   82 (in)
+      bmAttributes        =   02 (Bulk)
+      wMaxPacketSize      = 0040
+      bInterval           =   00
+usb.c: kusbd: /sbin/hotplug add 2
+Adding Swap: 104412k swap-space (priority -1)
+Serial driver version 4.27 with no serial options enabled
+ttyS00 at 0x03f8 (irq = 4) is a 16550A
+ttyS01 at 0x02f8 (irq = 3) is a 16550A
+eth0: 21143 10baseT link beat good.
+usb.c: usbdevfs driver claimed interface c3edd300
+usb.c: usbdevfs driver claimed interface c3edd300

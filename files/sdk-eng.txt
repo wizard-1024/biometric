@@ -1,0 +1,443 @@
+Biometric FingerPrint Software Development Kit (BFP SDK)
+for Linux/Unix platforms.
+	
+
+Copyright (c) 2004-2005 Dmitry Stefankov.
+
+
+Preliminary description.
+Version 1.3
+April 2005.
+
+
+1. General description
+2. Software and hardware requirements
+3. BFP SDK package contents
+4. Installation and usage
+5. Structures and functions description
+6. Device driver and configuration file
+7. Additions and limitations
+
+
+
+1. General description
+
+A purpose of BFP SDK is a using of the biometric authentication on
+Unix/Linux platforms. Before a wide usage of any biometric technologies 
+was impossible in practice for Unix world. The main reasons
+were the following: very complex and cost equipment, imperfectness
+and complex of biometric technologies, very difficult process of
+software porting from Microsoft Windows platform to Unix platform.
+The standards and software for Microsoft Windows are always very
+complex, wrong and difficult to work them. But a world is changed. 
+And now many biometric technologies and biometric hardware have a very
+good level of reliability and it is possible to get a wanted
+simplicity and ecomonic solution for the biometric solutions.
+This SDK was created to make a possible an easy and simplex
+work with a biometric authentication in Unix/Linix world.
+
+
+
+
+2. Software and hardware requirements
+
+BFP SDK is designed to work only on Intel x86-platforms and compatible
+hardware platforms.
+
+BFP SDK was designed for the following operating platforms:
+OS based on Linux kernel (for example, distributives like, Debian Linux,
+Suse Linux, RedHat Linux, Mandrake Linux, ASP Linux) and OSes based on 
+kernel BSD 4.4 (for example, FreeBSD, NetBSD, OpenBSD).
+It is supported all versions of Linux kernel, beginning from 2.2.18
+and all versions of OS FreeBSD, started from 4.9 version.
+It is also supported all versions of OS OpenBSD, started from 3.0 version,
+and all versions of OS NetBSD, started from 1.5.2 version.
+At moment of writing of this manual the current versions were the following:
+Linix kernel - 2.4.30 and 2.6.11;
+OS FreeBSD - 4.11 or 5.3;
+NetBSD - 2.0;
+OpenBSD - 3.6;
+
+BFP SDK was tested for the following hardware platforms and OSes:
+1) Intel Pentium 200Mhz, 64MB memory, Intel chipset 430HX
+   (Mainboard P/I-XP55T2P4)  
+   FreeBSD 4.11, 
+   OpenBSD 3.0, 
+   Suse Linux 6.3 (kernel 2.2.25),
+   RedHat Linux 6.2 (kernel 2.2.18,2.2.25,2.4.25);
+2) Intel Pentium 166MHz, 64MB memory, Intel chipset 430TX 
+   (Mainboard Asus TX97-XE) -
+   FreeBSD 4.11, 
+   NetBSD 1.5.2;
+   Debian Linux (kernel 2.4.14)
+3) Intel Pentium III 2x1000Mhz, 1 GB memory, VIA Apollo Pro133A chipset
+   (Mainboard 694D Pro2-IR, MS-6321 v2.X)
+   FreeBSD 4.11, 
+   Suse Linux 7.3 (kernel 2.4.10 - 2.4.20),
+   RedHat Linux 9.0 (kernel 2.4.20 - 2.6.5),
+   Mandrake Linux 8.1 (kernel 2.4.8),
+   Mandrake Linux 9.1 (kernel 2.4.21);
+   Mandrake Linux 10.0 (kernel 2.6.11);   
+4) Intel Pentium III 1GHz, 512 MB memory, VIA Twister
+   (Asus B1000 Series)
+   FreeBSD 5.3
+   RedHat Linux 9.0 (kernel 2.4.20 - 2.6.1)
+   
+Currentlty BFP SDK is supported only a hardware from one vendor:
+biometric fingerprint scanner "Futronic" with USB interface.
+Is is not planned to support the scanners of other vendors
+at least in near future.
+
+BFP SDK don't have a kernel mode driver for a scanner. A good design
+of the scanner hardware is eliminated this driver for a given task.
+The USB interface has a bulk tranfer mode. This is enough to work
+with any USB scanner from a user-mode application. BFP SDK is used
+to work wuth USB scanners a well-known multiplatform library libusb.
+Last version of libusb is 0.1.7. This last version is recommended
+to install and work together with BFP SDK. The official site of
+this library - http://libusb.sourceforge.net.
+Don't forget to update the dynamic library cache 
+(see for help: man ldconfig).
+
+Remark: please see also note 6 (device driver).
+
+
+3. BFP SDK package contents
+
+BFP SDK package contains a following files:
+
+bfpsdk-x.y.z.tar.gz  -  BFP SDK archive package,
+                        where x.y.z is version number
+
+bfpsdk.so        -  dynamic shared library BFP SDK for applications
+libbfpsdk.a      -  BFP SDK static library for applications
+bfpsdk.h         -  BFP SDK structures and functions
+bfpsdk.mak       -  makefile to build/clean BFP SDK library into system
+                    build/clean demo samples
+
+sample.c         -  base source code to use BFP SDK
+                    Contains a standard text to work with BFP SDK
+                    Includes scanner images acquiring, template/model
+                    building for these images, template/model comparison
+sample.mak       -  makefile to build sample application
+sample           -  executable code for your platform 
+
+text-demo.c      -  demo sample how to use BFP SDK to work with
+                    user biometric templates database. It is fully
+                    showed all advantages of BFP SDK. Here is implemented
+                    all standard functions for biometric authentication
+                    (enrollment/identification/verification).
+                    Simple text mode interface for any Linux/Unix 
+                    environment (without curses)
+text-demo.mak    -  makefile to build text-demo sample
+text-demo        -  executable code for your platform 
+
+ncurses-demo.c   -  same functionality as text-demo
+                    User text interface is based on curses library.
+ncurses-demo.mak -  makefile to build ncurses-demo sample
+ncurse-demo      -  executable code for your platform 
+
+gtk-demo.c       -  same functionality as text-demo
+                    Graphical interface for GNOME/GTK2+.
+                    Also must be installed ImagePick package.
+gtk-demo.mak     -  makefile build gtk-demo sample
+gtk-demo         -  executable code for your platform 
+logo.png         -  well-know known image ("penguin")
+fp-off.png       -  graphical image ("take off finger")
+fp-on.png        -  graphical image ("take on finger")
+
+
+
+4. Installation and usage
+
+Installation order:
+
+а) Copy BFP SDK in a wanted catalog, for examples, /usr/local/src/bfpsdk
+б) Unarchive library:
+  # tar xzf bfpsdk.tar.gz  
+в) Install BFP SDK into system
+  # make -f bfpsdk.mak install
+  (To remove BFP SDK from system replace install to uninstall)
+г)  Optionally. How to build demo samples for BFP SDK?
+   # make -f sample.mak
+   # make -f text-demo.mak
+   # make -f ncurses-demo.mak
+   # make -f gtk-demo.mak
+To remove use same commands, but with a parameter clean.
+
+Usage order.
+
+Now you can use BFP SDK for your applications.
+а) Add to your source code a line:
+  #include <bfpsdk.h>
+б) Add a line to compile:
+  -I/usr/local/include
+в) To make dynamic linking:
+  /usr/lib/bfpsdk.so or enough bfpsdk.so
+г) To make static linking:
+   -static -lbfpsdk  
+Please see for details the source code for BFP SDK samples.
+
+
+
+5. Structures and functions description
+
+Structures.
+
+BFP SDK is defined the two structures - 
+bfp_hardware_info and bfp_software_info.
+
+Structure bfp_hardware_info is contained the hardware specific 
+description for each scanner. Application programmer need only
+a serial number for scanner.
+
+Structure bfp_software_info contains a neccessary constants and values
+to make application program code, independent about BFP SDK specific
+features (hardware interface and mathematical algorithm to work
+with fingerprints).
+Application programmer needs only these fields:
+model_size   -- model size (in bytes)
+total_size   -- template size (in bytes) 
+measure      -- comparison measure (level of pass and eject)
+image_size   -- image size (in bytes)
+samples_num  -- images number to build template
+models_num   -- minimal number of models for template
+max_models   -- maximal number of models for template
+
+The right usage of these structures you can see in demo samples of BFP SDK.
+Please see BFP SDK demo code before create your own code.
+
+
+Functions. 
+
+Name                       Purpose
+---------------------      ---------------------------------------
+bfp_init                   attach library
+bfp_deinit                 deattach library
+bfp_get_software_info      return software specific parameters
+bfp_get_hardware_info      return hardware specific parameters
+bfp_get_image_timeo        acquire fingerprint image from scanner
+bfp_extract                build template/model
+bfp_match                  compare template/model to match
+
+
+----------------
+
+Initialization of BFP SDK library.
+int bfp_init();
+
+Returned values: 0 = success, -1 = failure
+
+Must be called first before any other. If initialization was successful
+then application can continue to work. Otherwise, it is neccessary
+to terminate the application work.
+
+----------------
+
+Deinitialization of BFP SDK library.
+int bfp_deinit();
+
+Returned values: 0 = success
+
+Must be called last. After this function calling it is impossible
+to continue a work with BFP SDK.
+
+----------------
+
+Get software parameters for BFP SDK.
+int bfp_get_software_info( struct bfp_software_info * p_soft_param );
+
+Parameters:
+struct bfp_software_info * p_soft_param  -- buffer pointer to fill
+
+Parameters: 0 = success, -1 = failure
+
+Application programmer is given a pointer to structure bfp_software_info
+and after successful calling he can use a values from this structure
+for correct initialization of other objects in application code.
+It is recommended to call this function after bfp_init(). 
+
+----------------
+
+Get hardware specific parameters for BFP scanners attached to system.
+int bfp_get_hardware_info( struct bfp_hardware_info * p_hard_param, int scanner );
+
+Parameters:
+struct bfp_hardware_info * p_hard_param  -- buffer pointer to fill
+int scanner  -- order number for scanner (only for counting)
+
+Returned values: 0 = success, -1 = failure, -2 = no such scanner
+
+Application programmer gives a pointer to a structure bfp_hardware_info
+and a order number of scanner. Changing this number from 0 upto N
+you can count the attached scanners to the system. But, you must
+store somewhere a serial numbers of these scanners because if more
+than one scanner attached to system, you can access different scanners
+only using serial number. Using this function with scanner is equial 0
+always it is possible to see if is there at least one scanner attached
+to system.
+
+----------------
+
+Get a fingerprint image from BFP scanner.
+int bfp_get_image_timeo( unsigned char * buf, unsigned long int bufsize, 
+                         int timeout, unsigned long int sernum );
+
+Parameters:
+unsigned char * buf  -- buffer to store image
+unsigned long int bufsize  -- buffer size
+int timeout  -- timeout to get fingerprint (in seconds)
+                0 = get image without waiting
+unsigned long int sernum  -- serial number of scanner
+                             0 = use first attached scanner to system
+
+Returned values: 0 = success, -1 = failure
+
+This function is completed successfully only if an image contains a real
+fingerprint. In all other cases it will be returned an error. When you
+use a timeout value then a scanner is checked one time per second to
+get and test an image for fingerprint.
+
+
+----------------
+
+Build or extract biometric model/template by image(-s).
+int bfp_extract(void *images, int n, void *buf);
+
+Parameters:
+void *images  -- buffer storing from 1 upto n images
+int n         -- images number
+                 ( if =1 then build model, if >1 then build template)
+void *buf     -- buffer to store extracted data of model or template
+                 (buffer size must be enough to store extracted data,
+                  otherwise application will be terminated by SEGV)
+
+Returned values: -2 = wrong parameters, -1 = failure, 
+                  >0 = size of returned data (success)
+
+Application programmer must apply a correct parameters to build
+successfully a biometric model/template. The sample source code to use 
+this function can be found in demo samples for BFP SDK.
+
+
+----------------
+
+Compare(match) templates or models.
+int bfp_match(void *buf1, int n1, void *buf2, int n2);
+
+Parameters:
+void *buf1  -- first buffer for model/template data
+int n1      -- model/template size in first buffer (in bytes)
+void *buf2  -- second buffer for model/template data
+int n2      -- model/template size in second buffer (in bytes)
+
+Returned values:  -2 = wrong parameters, -1 = failure, 
+                  any value in range from 0 upto 100 is measure code (success)
+                  Than closer this value to 1000, then it could be sure
+                  about good matching of biometric characteristics.
+                  Recommended level is equal 600.
+
+Application programmer must apply a correct parameters to match(compare)
+successfully a biometric model/template. The sample source code to use 
+this function can be found in demo samples for BFP SDK.
+
+
+
+6. Device driver and configuration file
+
+For some hardware and sofware configurations a library libusb
+works very unstable. In this case it is recommended to setup
+the device driver, implemented as the kernel module. For OS FreeBSD
+it is a module uscan_bfp. For Linux kernel it is an uscanner module
+(for all versions of kernel - 2.2.X,2.4.X,2.6.X).
+The driver is supplied by request, in source code form and without
+any support. You must yourself to build and setup for your platform
+and OS. To build module just run make.
+
+To switch between libusb library and device driver use the configuration
+file bfpsdk.conf. This file must be present in catalog /usr/local/etc.
+
+The following directives are defined and used:
+
+use_libusb=[0|1] 
+(0=use driver, 1=use libusb)
+
+use_multi_devices=[0|1] 
+(If selected to use driver instead libusb, then if you set this directive
+to 1, it is possible to use of multiple devices using directives 
+device_name_x, where x changes from от 0 upto 15)  
+
+device_name_0="/dev/uscanner0" 
+(for OS Linux use /dev/usb/scanner0, see uscanner source code how
+ to create and add this device,
+ for OS FreeBSD use /dev/uscanner0 and disable uscanner in kernel,
+ if you need uscanner module, then modify source code to support
+ your new device)
+
+#usb_device_vendor_id=xxxx 
+#usb_device_product_id=yyyy 
+(use user supplied values for USB device additionally to built-in
+table of supported devices)
+
+print_error_messages=[0|1] 
+(0=off, 1=on; print error messages for debugging version of SDK) 
+
+fast_match=0
+(0=off,1=on; fast compare, stop on first matching model in template
+if measure level was exceed)
+
+samples_num=N
+(number of samples to asked during enrollement process, note that
+user program can use own samples number, this value is default for 
+library settings)
+
+Driver is supported only one device, but libusb library is supported
+multiple devices.
+
+
+
+7. Additions and limitations
+
+Limitations.
+
+A) Current implementation
+Current implementation of BFP SDK has the following non-reenterable functions:
+
+Name                    Reason
+-------------------     ---------------------------------------------
+bfp_get_image_timeo     USB bus is not multi-channel pipe
+bfp_extract             using of global data
+bfp_match               using of global data
+
+Maybe, in the next implementations it will be possible to overcome 
+the limitations of two last functions: bfp_extract and bfp_match.
+But first function has a natural limitation and this will not change
+in future.
+
+If you want to use these functions in multithreaded and parallel
+applications then it is recommened to use your own algorithm and 
+disciplines to access, block and wait.
+
+BFP SDK will not have a such algorithms/disciplines to avoid a very
+complex code on its level according Unix world rules.
+
+
+B) Programming considerations
+BFP SDK has a minimal checking for input parameters, but all other
+must be checked by application programmer. The wrong sizes of buffer,
+non-allocated memory and other usual bugs will be given a fatal
+termination of code from BFP SDK. Even such simple functions about
+BFP SDK is required a good discipline during programming job.
+Please reuse supplied code from BFP SDK samples, because at first
+this code was written to use it in application code.
+
+
+
+C) Scanners "Futronic"
+Today most scanners "Futronic" are contained a firmware without a support 
+of the  serial number for scanner. BFP SDK is detected a such firmware
+and will supported only one scanner per system - a first found scanner
+during the USB bus scanning.
+
+Note.
+Now all scanners "Futronic" have a firmware with a serial number support.

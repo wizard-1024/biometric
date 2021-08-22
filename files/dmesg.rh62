@@ -1,0 +1,85 @@
+Linux version 2.2.22 (root@freehom2.home.ru) (gcc version egcs-2.91.66 19990314/Linux (egcs-1.1.2 release)) #1 Sat Mar 20 19:38:19 MSK 2004
+BIOS-provided physical RAM map:
+ BIOS-e820: 0009f000 @ 00000000 (usable)
+ BIOS-e820: 03f00000 @ 00100000 (usable)
+Detected 208268 kHz processor.
+Console: colour VGA+ 80x25
+Calibrating delay loop... 416.15 BogoMIPS
+Memory: 63096k/65536k available (1044k kernel code, 412k reserved, 916k data, 68k init)
+Dentry hash table entries: 8192 (order 4, 64k)
+Buffer cache hash table entries: 65536 (order 6, 256k)
+Page cache hash table entries: 16384 (order 4, 64k)
+VFS: Diskquotas version dquot_6.4.0 initialized
+Intel old style machine check architecture supported.
+Intel old style machine check reporting enabled on CPU#0.
+CPU: Intel Pentium MMX stepping 03
+Checking 386/387 coupling... OK, FPU using exception 16 error reporting.
+Checking 'hlt' instruction... OK.
+Intel Pentium with F0 0F bug - workaround enabled.
+POSIX conformance testing by UNIFIX
+PCI: PCI BIOS revision 2.10 entry at 0xf0510
+PCI: Using configuration type 1
+PCI: Probing PCI hardware
+Linux NET4.0 for Linux 2.2
+Based upon Swansea University Computer Society NET3.039
+NET4: Unix domain sockets 1.0 for Linux NET4.0.
+NET4: Linux TCP/IP 1.0 for NET4.0
+IP Protocols: ICMP, UDP, TCP
+TCP: Hash tables configured (ehash 65536 bhash 65536)
+Starting kswapd v 1.5 
+vga16fb: initializing
+vga16fb: mapped to 0xc00a0000
+Console: switching to colour frame buffer device 80x30
+fb0: VGA16 VGA frame buffer device
+Detected PS/2 Mouse Port.
+Serial driver version 4.27 with no serial options enabled
+ttyS00 at 0x03f8 (irq = 4) is a 16550A
+ttyS01 at 0x02f8 (irq = 3) is a 16550A
+pty: 256 Unix98 ptys configured
+Real Time Clock Driver v1.09
+RAM disk driver initialized:  16 RAM disks of 4096K size
+PIIX4: IDE controller on PCI bus 00 dev 09
+PIIX4: not 100% native mode: will probe irqs later
+    ide0: BM-DMA at 0xe000-0xe007, BIOS settings: hda:DMA, hdb:pio
+    ide1: BM-DMA at 0xe008-0xe00f, BIOS settings: hdc:DMA, hdd:DMA
+hda: FUJITSU MPF3102AT, ATA DISK drive
+hdc: WDC AC28400R, ATA DISK drive
+hdd: Pioneer CD-ROM ATAPI Model DR-A10X 0100, ATAPI CDROM drive
+ide0 at 0x1f0-0x1f7,0x3f6 on irq 14
+ide1 at 0x170-0x177,0x376 on irq 15
+hda: FUJITSU MPF3102AT, 9773MB w/512kB Cache, CHS=1245/255/63, (U)DMA
+hdc: WDC AC28400R, 8063MB w/512kB Cache, CHS=16383/16/63, (U)DMA
+hdd: ATAPI 10X CD-ROM drive, 128kB Cache
+Uniform CD-ROM driver Revision: 3.11
+Floppy drive(s): fd0 is 1.44M
+FDC 0 is a post-1991 82077
+scsi : 0 hosts.
+scsi : detected total.
+tulip.c:v0.89H 5/23/98 becker@cesdis.gsfc.nasa.gov
+eth0: Digital DC21041 Tulip at 0xd400, 21041 mode, 00 80 48 e8 7b bb, IRQ 10.
+eth0:21041 Media information at 30, default media 0800 (Autosense).
+eth0:  21041 media #0, 10baseT.
+eth0:  21041 media #0, 10baseT.
+eth0:  21041 media #0, 10baseT.
+eth0:  21041 media #0, 10baseT.
+Partition check:
+ hda: hda1 hda2 < hda5 hda6 hda7 hda8 hda9 hda10 hda11 > hda3! < hda12 hda13 hda14 hda15 >
+ hdc: [PTBL] [1027/255/63] hdc1 hdc2! hdc3 hdc4 < hdc5 hdc6 >
+apm: BIOS version 1.2 Flags 0x0b (Driver version 1.13)
+usb.c: registered new driver usbdevfs
+usb.c: registered new driver hub
+uhci.c: USB UHCI at I/O 0xd800, IRQ 11
+uhci.c: detected 2 ports
+usb.c: new USB bus registered, assigned bus number 1
+usb.c: USB new device connect, assigned device number 1
+hub.c: USB hub found
+hub.c: 2 ports detected
+VFS: Mounted root (ext2 filesystem) readonly.
+Freeing unused kernel memory: 68k freed
+hub.c: USB new device connect on bus1/2, assigned device number 2
+usb.c: USB new device connect, assigned device number 2
+usb.c: USB device 2 (vend/prod 0x1491/0x20) is not claimed by any active driver.
+Adding Swap: 104412k swap-space (priority -1)
+ad1848/cs4248 codec driver Copyright (C) by Hannu Savolainen 1993-1996
+Found OPL3-SAx (YMF719)
+YM3812 and OPL-3 driver Copyright (C) by Hannu Savolainen, Rob Hooft 1993-1996

@@ -1,0 +1,9 @@
+# Sample configuration file
+
+# Use libusb or driver
+use_libusb=0
+
+# Device name
+#device_name_0="/dev/uscanner0"
+device_name_0="/dev/ugen0.02"
+

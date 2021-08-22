@@ -1,0 +1,16 @@
+crw-rw----  1 root  wheel   63,   0 Mar 22  2004 /dev/ugen0.00
+crw-rw----  1 root  wheel   63,   1 Mar 22  2004 /dev/ugen0.01
+crw-rw----  1 root  wheel   63,   2 Dec  2 16:59 /dev/ugen0.02
+crw-rw----  1 root  wheel   63,   3 Mar 22  2004 /dev/ugen0.03
+crw-rw----  1 root  wheel   63,   4 Mar 22  2004 /dev/ugen0.04
+crw-rw----  1 root  wheel   63,   5 Mar 22  2004 /dev/ugen0.05
+crw-rw----  1 root  wheel   63,   6 Mar 22  2004 /dev/ugen0.06
+crw-rw----  1 root  wheel   63,   7 Mar 22  2004 /dev/ugen0.07
+crw-rw----  1 root  wheel   63,   8 Mar 22  2004 /dev/ugen0.08
+crw-rw----  1 root  wheel   63,   9 Mar 22  2004 /dev/ugen0.09
+crw-rw----  1 root  wheel   63,  10 Mar 22  2004 /dev/ugen0.10
+crw-rw----  1 root  wheel   63,  11 Mar 22  2004 /dev/ugen0.11
+crw-rw----  1 root  wheel   63,  12 Mar 22  2004 /dev/ugen0.12
+crw-rw----  1 root  wheel   63,  13 Mar 22  2004 /dev/ugen0.13
+crw-rw----  1 root  wheel   63,  14 Mar 22  2004 /dev/ugen0.14
+crw-rw----  1 root  wheel   63,  15 Mar 22  2004 /dev/ugen0.15

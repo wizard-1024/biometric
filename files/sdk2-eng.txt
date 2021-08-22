@@ -1,0 +1,1033 @@
+Biometric FingerPrint Software Development Kit (BFP SDK)
+for Linux/Unix platforms.
+	
+
+Copyright (c) 2004-2007 Dmitry Stefankov.
+
+
+Developer's manual.
+Version 2.3
+March 2007.
+
+
+1.  General description
+2.  Software and hardware requirements
+3.  BFP SDK package contents
+4.  Installation and usage
+5.  Structures and functions description
+6.  Device driver and configuration file
+7.  Additions and limitations
+8.  Questions and answers
+9.  Capture Image SDK (CI-SDK)
+10. Equivalence BFPSDK functions and FtrScanAPI (Microsoft Windows)
+11. Some programming condiderations for Futronic scanner
+    for Unix and Microsoft Windows platforms
+
+
+1. General description
+
+A purpose of BFP SDK is a using of the biometric authentication on
+Unix/Linux platforms. Before a wide usage of any biometric technologies 
+was impossible in practice for Unix world. The main reasons
+were the following: very complex and cost equipment, imperfectness
+and complex of biometric technologies, very difficult process of
+software porting from Microsoft Windows platform to Unix platform.
+The standards and software for Microsoft Windows are always very
+complex, wrong and difficult to work them. But a world is changed. 
+And now many biometric technologies and biometric hardware have a very
+good level of reliability and it is possible to get a wanted
+simplicity and ecomonic solution for the biometric solutions.
+This SDK was created to make a possible an easy and simplex
+work with a biometric authentication in Unix/Linix world.
+
+
+
+
+2. Software and hardware requirements
+
+BFP SDK is designed to work only on Intel x86-platforms and compatible
+hardware platforms.
+
+BFP SDK was designed for the following operating platforms:
+OS based on Linux kernel (for example, distributives like, Debian Linux,
+Suse Linux, RedHat Linux, Mandrake Linux, ASP Linux, ALT Linux, Knoppix,
+Slackware) and OSes based on distribution BSD 4.4 (for example, 
+FreeBSD, NetBSD, OpenBSD, Mac OS X).
+It is supported all versions of Linux kernel, beginning from 2.2.18
+and all versions of OS FreeBSD, started from 4.9 version.
+It is also supported all versions of OS OpenBSD, started from 3.0 version,
+and all versions of OS NetBSD, started from 1.5.2 version.
+At moment of writing of this manual the current versions were the following:
+Linix kernel - 2.4.32 and 2.6.16;
+OS FreeBSD - 4.11 or 5.3 or 5.0;
+NetBSD - 2.1;
+OpenBSD - 3.8;
+
+BFP SDK was tested for the following hardware platforms and OSes:
+1) Intel Pentium 166Mhz, 64MB memory, Intel chipset 430HX
+   (Mainboard P/I-XP55T2P4), UHCI 1.0
+   FreeBSD 4.11, 
+   NetBSD 1.5.2,
+   NetBSD 2.1,
+   OpenBSD 3.8,
+   Debian Linux (kernel 2.4.14),
+   Slackware Linux 10.2 (kernel 2.4.31)
+2) Intel Pentium 200MHz, 64MB memory, Intel chipset 430TX 
+   (Mainboard Asus TX97-XE), UHCI 1.1
+   FreeBSD 4.11, 
+   OpenBSD 3.0, 
+   Suse Linux 6.3 (kernel 2.2.25),
+   RedHat Linux 6.2 (kernel 2.2.18,2.2.25,2.4.25);
+3) Intel Pentium III 2x1000Mhz, 1 GB memory, VIA Apollo Pro133A chipset
+   (Mainboard 694D Pro2-IR, MS-6321 v2.X), UHCI 1.1
+   (External USB Controller VIA), UHCI 2.0
+   FreeBSD 4.11, 
+   FreeBSD 5.4,    
+   FreeBSD 6.0,    
+   FreeBSD 6.2,       
+   Suse Linux 7.3 (kernel 2.4.10 - 2.4.20),
+   RedHat Linux 8.0 (kernel 2.4.18),   
+   RedHat Linux 9.0 (kernel 2.4.20 - 2.6.16),
+   Mandrake Linux 8.1 (kernel 2.4.8),
+   Mandrake Linux 9.1 (kernel 2.4.21);
+   Mandrake Linux 10.0 (kernel 2.6.11);   
+   Fedora Core 2 Linux (kernel 2.6.5 - 2.6.12)
+   Fedora Core 5 Linux (kernel 2.6.15 - 2.6.16)   
+   Knoppix 3.8 Live CD    
+   Knoppix 4.0.2 Live CD (kernel 2.6.12)
+   Knoppix 5.0.1 Live CD/DVD (kernel 2.6.19)
+   ALT Linux Master 2.4
+   Intel Solaris x86 9
+   Intel Solaris x86 10
+   QNX Momentics NC Edition 6.2.1
+4) Intel Pentium III 1GHz, 512 MB memory, VIA Twister
+   (Asus B1000 Series)
+   FreeBSD 5.3
+   FreeBSD 6.0,
+   FreeBSD 6.1,
+   FreeBSD 6.2,       
+   RedHat Linux 9.0 (kernel 2.4.20 - 2.6.1),
+   Suse Linux 10.0 (kernel 2.6.13 - 2.6.15),
+   Knoppix 4.0.2 Live CD (kernel 2.6.12)
+5) Intel Pentium 166MHz, 32MB RAM, 
+   (Toshiba Satellite Pro 460CDT), OHCI 1.0
+   FreeBSD 4.11, 
+   FreeBSD 5.3 
+6) Mac mini, Intel Core Solo 1.5GHz, 512 MB memory, ICH7
+   AppleUSBUHCI v2.0
+   Mac OS X 10.4.4 (Darwin kernel 8.5.3)
+
+   
+Currentlty BFP SDK is supported only a hardware from one vendor:
+biometric fingerprint scanner "Futronic" with USB interface.
+The following models of Futronic scanners are supported:
+FS80 (interface USB 1.1 or USB 2.0), FS82.
+
+
+BFP SDK don't have a kernel mode driver for a scanner. A good design
+of the scanner hardware is eliminated this driver for a given task.
+The USB interface has a bulk tranfer mode. This is enough to work
+with any USB scanner from a user-mode application. BFP SDK is used
+to work wuth USB scanners a well-known multiplatform library libusb.
+Last version of libusb is 0.1.11. This last version is recommended
+to install and work together with BFP SDK. The official site of
+this library - http://libusb.sourceforge.net.
+Don't forget to update the dynamic library cache 
+(see for help: man ldconfig).
+
+Remark: please see also note 6 (device driver).
+
+
+
+3. BFP SDK package contents
+
+BFP SDK package contains a following files:
+
+bfpsdk-x.y.z.tar.gz  -  BFP SDK archive package,
+                        where x.y.z is version number
+
+bfpsdk.so        -  dynamic shared library BFP SDK for applications
+libbfpsdk.a      -  BFP SDK static library for applications
+bfpsdk.h         -  BFP SDK structures and functions
+bfpsdk.mak       -  makefile to build/clean BFP SDK library into system
+                    build/clean demo samples
+
+sample.c         -  base source code to use BFP SDK
+                    Contains a standard text to work with BFP SDK
+                    Includes scanner images acquiring, template/model
+                    building for these images, template/model comparison
+sample.mak       -  makefile to build sample application
+sample           -  executable code for your platform 
+
+text-demo.c      -  demo sample how to use BFP SDK to work with
+                    user biometric templates database. It is fully
+                    showed all advantages of BFP SDK. Here is implemented
+                    all standard functions for biometric authentication
+                    (enrollment/identification/verification).
+                    Simple text mode interface for any Linux/Unix 
+                    environment (without curses)
+text-demo.mak    -  makefile to build text-demo sample
+text-demo        -  executable code for your platform 
+
+ncurses-demo.c   -  same functionality as text-demo
+                    User text interface is based on curses library.
+ncurses-demo.mak -  makefile to build ncurses-demo sample
+ncurse-demo      -  executable code for your platform 
+
+gtk-demo.c       -  same functionality as text-demo
+                    Graphical interface for GNOME/GTK2+.
+                    Also must be installed ImagePick package.
+gtk-demo.mak     -  makefile build gtk-demo sample
+gtk-demo         -  executable code for your platform 
+logo.png         -  well-know known image ("penguin")
+fp-off.png       -  graphical image ("take off finger")
+fp-on.png        -  graphical image ("take on finger")
+
+Note.
+All examples by default are supported the reenterable calls
+To disable the reenterability set the directive _REENTRANT_CALLS to 0.
+
+
+
+4. Installation and usage
+
+Installation order:
+
+а) Copy BFP SDK in a wanted catalog, for examples, /usr/local/src/bfpsdk
+б) Unarchive library:
+  # tar xzf bfpsdk.tar.gz  
+в) Install BFP SDK into system
+  # make -f bfpsdk.mak install
+  (To remove BFP SDK from system replace install to uninstall)
+г)  Optionally. How to build demo samples for BFP SDK?
+   # make -f sample.mak
+   # make -f text-demo.mak
+   # make -f ncurses-demo.mak
+   # make -f gtk-demo.mak
+To remove use same commands, but with a parameter clean.
+
+Usage order.
+
+Now you can use BFP SDK for your applications.
+а) Add to your source code a line:
+  #include <bfpsdk.h>
+б) Add a line to compile:
+  -I/usr/local/include
+в) To make dynamic linking:
+  /usr/lib/bfpsdk.so or enough bfpsdk.so
+г) To make static linking:
+   -static -lbfpsdk  
+Please see for details the source code for BFP SDK samples.
+
+
+
+5. Structures and functions description
+
+Structures.
+
+BFP SDK is defined the two structures - 
+bfp_hardware_info and bfp_software_info.
+
+Structure bfp_hardware_info is contained the hardware specific 
+description for each scanner. Application programmer need only
+a serial number for scanner.
+
+Structure bfp_software_info contains a neccessary constants and values
+to make application program code, independent about BFP SDK specific
+features (hardware interface and mathematical algorithm to work
+with fingerprints).
+Application programmer needs only these fields:
+model_size   -- model size (in bytes)
+total_size   -- template size (in bytes) 
+measure      -- comparison measure (level of pass and eject)
+image_size   -- image size (in bytes)
+samples_num  -- images number to build template
+models_num   -- minimal number of models for template
+max_models   -- maximal number of models for template
+bfp_get_image_timeo_r_size  -- size of temporary space for xxx_r function
+bfp_extract_r_size          -- size of temporary space for xxx_r function
+license_info -- information about your license
+hardware_access_info -- information about hardware access methods
+
+The right usage of these structures you can see in demo samples of BFP SDK.
+Please see BFP SDK demo code before create your own code.
+
+
+Functions. 
+
+Name                       Purpose
+---------------------      ---------------------------------------
+bfp_init                   attach library
+bfp_deinit                 deattach library
+bfp_get_software_info      return software specific parameters
+bfp_get_hardware_info      return hardware specific parameters
+bfp_get_image_timeo        acquire fingerprint image from scanner
+bfp_get_image_timeo_r      acquire fingerprint image from scanner
+bfp_extract                build template/model
+bfp_extract_r              build template/model
+bfp_match                  compare template/model to match
+
+
+----------------
+
+Initialization of BFP SDK library.
+int bfp_init();
+
+Returned values: 0 = success, -1 = failure
+
+Must be called first before any other. If initialization was successful
+then application can continue to work. Otherwise, it is neccessary
+to terminate the application work.
+
+
+----------------
+
+Deinitialization of BFP SDK library.
+int bfp_deinit();
+
+Returned values: 0 = success
+
+Must be called last. After this function calling it is impossible
+to continue a work with BFP SDK.
+
+
+----------------
+
+Get software parameters for BFP SDK.
+int bfp_get_software_info( struct bfp_software_info * p_soft_param );
+
+Parameters:
+struct bfp_software_info * p_soft_param  -- buffer pointer to fill
+
+Parameters: 0 = success, -1 = failure
+
+Application programmer is given a pointer to structure bfp_software_info
+and after successful calling he can use a values from this structure
+for correct initialization of other objects in application code.
+It is recommended to call this function after bfp_init(). 
+This function is internally reenterable.
+
+
+----------------
+
+Get hardware specific parameters for BFP scanners attached to system.
+int bfp_get_hardware_info( struct bfp_hardware_info * p_hard_param, int scanner );
+
+Parameters:
+struct bfp_hardware_info * p_hard_param  -- buffer pointer to fill
+int scanner  -- order number for scanner (only for counting)
+
+Returned values: 0 = success, -1 = failure, -2 = no such scanner
+
+Application programmer gives a pointer to a structure bfp_hardware_info
+and a order number of scanner. Changing this number from 0 upto N
+you can count the attached scanners to the system. But, you must
+store somewhere a serial numbers of these scanners because if more
+than one scanner attached to system, you can access different scanners
+only using serial number. Using this function with scanner is equial 0
+always it is possible to see if is there at least one scanner attached
+to system.
+This function is internally reenterable.
+
+
+----------------
+
+Get a fingerprint image from BFP scanner.
+int bfp_get_image_timeo( unsigned char * buf, unsigned long int bufsize, 
+                         int timeout, unsigned long int sernum,
+                         unsigned long int options );
+int bfp_get_image_timeo_r( unsigned char * buf, unsigned long int bufsize, 
+                           int timeout, unsigned long int sernum,
+		           unsigned char * raw_images_buf, 
+		           unsigned long int raw_images_bufsize,
+                           unsigned long int options );
+
+Parameters:
+unsigned char * buf  -- buffer to store image
+unsigned long int bufsize  -- buffer size
+int timeout  -- timeout to get fingerprint (in seconds)
+                0 = get image without waiting
+unsigned long int sernum  -- serial number of scanner
+                             0 = use first attached scanner to system
+unsigned char * raw_images_buf  -- temporary buffer 
+                                   NULL = don't use
+unsigned long int raw_images_bufsize  -- size of temporary buffer  
+                                  if less than value of field
+                                  bfp_get_image_timeo_r_size
+                                  from structuyre bfp_software_info, then
+                                  it don't used
+unsigned long int options   --   special options
+                                 1=Live Finger Detection
+                                 2=Fast Finger Detect
+
+Returned values: 0 = success, -1 = failure
+
+This function is completed successfully only if an image contains a real
+fingerprint. In all other cases it will be returned an error. When you
+use a timeout value then a scanner is checked one time per second to
+get and test an image for fingerprint.
+Function bfp_get_image_timeo() uses a static buffers, therefore it is
+not reenterable.
+Reenterable function bfp_get_image_timeo_r() needs the temporary space. 
+The value for temporary buffer size must be get from a field
+bfp_get_image_timeo_r_size using a structur bfp_software_info,
+flled during a call of function bfp_get_software_info().
+
+
+----------------
+
+Build or extract biometric model/template by image(-s).
+int bfp_extract(void *images, int n, void *buf);
+int bfp_extract_r(void *images, int n, void *buf,
+                  void *user_space, unsigned long int space_size);
+
+Parameters:
+void *images  -- buffer storing from 1 upto n images
+int n         -- images number
+                 ( if =1 then build model, if >1 then build template)
+void *buf     -- buffer to store extracted data of model or template
+                 (buffer size must be enough to store extracted data,
+                  otherwise application will be terminated by SEGV)
+void *user_space  -- temporary buffer   (NULL = don't use)
+unsigned long int space_size  --  size of temporary buffer  
+
+Returned values: -2 = wrong parameters, -1 = failure, 
+                  >0 = size of returned data (success)
+
+Application programmer must apply a correct parameters to build
+successfully a biometric model/template. The sample source code to use 
+this function can be found in demo samples for BFP SDK.
+Function bfp_extract() uses a static buffers, therefore it is
+not reenterable.
+Reenterable function bfp_extract_r() needs the temporary space. 
+The value for temporary buffer size must be get from a field
+bfp_extract_r_size using a structur bfp_software_info,
+flled during a call of function bfp_get_software_info().
+
+
+----------------
+
+Compare(match) templates or models.
+int bfp_match(void *buf1, int n1, void *buf2, int n2);
+
+Parameters:
+void *buf1  -- first buffer for model/template data
+int n1      -- model/template size in first buffer (in bytes)
+void *buf2  -- second buffer for model/template data
+int n2      -- model/template size in second buffer (in bytes)
+
+Returned values:  -2 = wrong parameters, -1 = failure, 
+                  any value in range from 0 upto 100 is measure code (success)
+                  Than closer this value to 1000, then it could be sure
+                  about good matching of biometric characteristics.
+                  Recommended level is equal 600.
+
+Application programmer must apply a correct parameters to match(compare)
+successfully a biometric model/template. The sample source code to use 
+this function can be found in demo samples for BFP SDK.
+This function is internally reenterable.
+
+
+
+6. Device driver and configuration file
+
+For some hardware and sofware configurations a library libusb
+works very unstable. In this case it is recommended to setup
+the device driver, implemented as the kernel module. For OS FreeBSD
+it is a module uscan_bfp. For Linux kernel it is an uscanner module
+(for all versions of kernel - 2.2.X,2.4.X,2.6.X).
+The driver is supplied by request, in source code form and without
+any support. You must yourself to build and setup for your platform
+and OS. To build module just run make.
+
+To switch between libusb library and device driver use the configuration
+file bfpsdk.conf. This file must be present in catalog /usr/local/etc.
+
+The following directives are defined and used:
+
+use_libusb=[0|1] 
+(0=use driver, 1=use libusb)
+
+use_multi_devices=[0|1] 
+(If selected to use driver instead libusb, then if you set this directive
+to 1, it is possible to use of multiple devices using directives 
+device_name_x, where x changes from от 0 upto 15)  
+
+device_name_0="/dev/uscanner0" 
+(for OS Linux use /dev/usb/scanner0, see uscanner source code how
+ to create and add this device,
+ for OS FreeBSD use /dev/uscanner0 and disable uscanner in kernel,
+ if you need uscanner module, then modify source code to support
+ your new device)
+
+#usb_device_vendor_id=xxxx 
+#usb_device_product_id=yyyy 
+(use user supplied values for USB device additionally to built-in
+table of supported devices)
+
+print_error_messages=[0|1] 
+(0=off, 1=on; print error messages for debugging version of SDK) 
+
+fast_match=0
+(0=off,1=on; fast compare, stop on first matching model in template
+if measure level was exceed)
+
+samples_num=N
+(number of samples to asked during enrollement process, note that
+user program can use own samples number, this value is default for 
+library settings)
+
+Driver is supported only one device, but libusb library is supported
+multiple devices.
+
+
+
+7. Additions and limitations
+
+Limitations.
+
+A) Current implementation
+Current implementation of BFP SDK has the following non-reenterable functions:
+
+Name                    Reason
+-------------------     ---------------------------------------------
+bfp_get_image_timeo     using of global data
+bfp_extract             using of global data
+
+If you want to use these functions in multithreaded and parallel
+applications then it is recommened to use your own algorithm and 
+disciplines to access, block and wait.
+
+BFP SDK will not have a such algorithms/disciplines to avoid a very
+complex code on its level according Unix world rules.
+
+You can use the corresponding xxx_r analogies for these functions
+(bfp_get_image_timeo_r,bfp_extract_r). Suffix _r means the reenterability
+support. For correct usage of xxx_r functions it is neccessary to allocate
+a temporary space of wanted size (from function bfp_get_software_info),
+otherwise you will get a error. This space can be allocated anywhere -
+stack, heap, local or global data.
+
+
+B) Programming considerations
+BFP SDK has a minimal checking for input parameters, but all other
+must be checked by application programmer. The wrong sizes of buffer,
+non-allocated memory and other usual bugs will be given a fatal
+termination of code from BFP SDK. Even such simple functions about
+BFP SDK is required a good discipline during programming job.
+Please reuse supplied code from BFP SDK samples, because at first
+this code was written to use it in application code.
+
+
+
+8. Questions and answers
+
+Common note.
+Think and read. And more read. You must think in Unix world, no other way
+to live in Unix world.
+
+Q.8.0  Nothing works! What can you say?
+Q.8.1  Scanner FS82 don't work with my system.
+Q.8.2  What is BFPSDK1 and BFPSDK2?
+Q.8.3  How to license BFPSDK2?
+Q.8.4  What platforms and OSes was fully or partially ported BFPSDK?
+Q.8.5  I have a biometric scanner of other manufacturer than Futronic.
+Q.8.6  Which access method (libusb,driver) to scanner is recommended?
+Q.8.7  BFPSDK will supportd BIOAPI in future?
+Q.8.8  How to write about problem to you? Do you have a standard form?
+Q.8.9  Sometimes demo applications gtk-scan and gtk-demo don't work, but
+       text demo apps work OK. What is a reason?
+Q.8.10 Are compatible Windows SDK and Linux/Unix SDK?
+Q.8.11 Is supported FtrScanAPI functions for Unix?
+Q.8.12 Is supported LiveFingerDetection (LFD) option?
+
+
+
+8.0 
+Question. Nothing works! What can you say?
+Answer. Nothing. My answer begin only for problem with package BFPSDK.
+At first, send me you system logs (dmesg or like same)
+When I see that scanner is successfully is attached to your system,
+then I will think about your problem. Please note, that your OS must
+attach the Futronic scanner without BFPSDK or drivers from BFPSDK.
+
+
+8.1 
+Question. Scanner FS82 don't work with my system.
+Answer. Scanner FS82 is required a port power more 500mA. A such power is
+possible to get only on the USB root hubs or on the USB hubs with separate
+power supply. In all other cases a separate port have the power 100 mA that 
+is not enough for scanner FS82.
+
+
+8.2
+Question. What is BFPSDK1 and BFPSDK2?
+Answer. BFPSDK1 - this is BFPSDK v1.3. BFPSDK2 - this is BFPSDK 2.0.
+BFPSDK1 is distributed freely (non-commercial version). It is based on
+algorithm made in 2004. It is supported scanners FS80 with USB 1.1 
+(with kernel module or libusb). Other models (FS80-USB2 or FS82) are
+supported only with kernel modules. Enhanced features of newer models are
+not supported. No reenterability support.
+BFPSDK2 is distributed as commercial licensed version, i.e. it is non-free
+version. It based on algorithm dated 2006. It is supported all Futronic 
+scanners FS80-USB1/USB2,FS82 (with kernel module and libusb). 
+Enhanced features of newer models are supported. It has reenterability support.
+Every new version of biometric algorithm has the following improvements and
+enhancements: improved quality of work (at first "for hard fingers") and
+increasing of algorithm's speed.
+For newest Futronic scanners  BFPSDK2 is used the improved method to
+capture images.
+
+
+8.3
+Question. How to license BFPSDK2?
+Answer. Write to me or in Futronic. Before I need a technical desciption of
+your platform and OS. If BFPSDK is possible to port on your platform/OS,
+then it will calculated the license fee. License fee is one-time paid
+without limititaions on number of workstations. The fee is included one-year
+e-mail support. The extended support is paid separately.
+
+
+8.4
+Question. What platforms and OSes was fully or partially ported BFPSDK?
+Answer. Main platfrom - x86 systems. For ARM9 is used kernel module.
+List of OS:
+BSD(x86): FreeBSD (fully), OpenBSD (fully), NetBSD (fully)
+Linux(x86): RedHat (fully), Suse (fully), Debian (fully), 
+       Mandrake (fully), ASP (fully), ALT (fully), 
+       Knoppix (fully), Fedora Core (fully)
+Solaris(x86): 9 и 10 (partially, no driver, network scanner was used)
+QNX (x86): 6.2.1 (partially, no driver, network scanner was used)
+Mac OS OX: 10.4.5 (fully)
+
+
+8.5
+Question. I have a biometric scanner of other manufacturer than Futronic.
+Can I used it with BFPSDK?
+Answer. No, you cannot. Event don't try. Many people had made a such attempts
+unsuccessfully. Please note again that it is absolutely impossible!
+
+
+8.6
+Question. Which access method (libusb,driver) to scanner is recommended?
+Answer.
+For older OS it is better libusb. For all newest OSes it is more better
+to use the kernel module driver.
+BFPSDK can used the following access methods for scanner:
+1) libusb - using of library libusb
+Crossplatfrom support. Badly works with some USB 2.0 add-on cards. It is 
+required a root or special rights from user to access the hardware 
+(really, USB bus access).
+Bad diagnostic and debugging.
+2) device ugen - use the system driver for device ugen.
+It can used only if the system driver is supported the non-structured
+block transfer of data.
+3) special kernel module driver (FreeBSD,Linux)
+It has a detail diagnostic and debugging (switch debug=1)
+
+
+8.7
+Question. Will BFPSDK supported BIOAPI standard in future?
+Answer. It possible to use BFPSDK to write wanted components in BIOAPI
+layers. But no plans are now.
+
+
+8.8
+Question. How to write about problem to you? Do you have a standard form?
+Answer. Write in free form. Use good sense and understanding of that fact,
+I don't be together with you and all that I will have only YOUR description
+of YOUR problem.
+Wrong case (real example, from a company B.).
+"Function bfp_get_hardware_info returns -1. Can you help?"
+Well, well. Can you help a such people? ...
+Right case.
+"I have OS X.Y.Z, kernel A.B.C, BFPSDK version N for platfrom M. Installed.
+Modified or not modified bfpsdk.conf (send it and indicate which access
+methods you tried to use). Did the scanner detected in system (send part of
+dmesg or full dmesg)? If scanner didn't detected in system (send full dmesg
+output). Using function bfp_get_hardware_info I always got value -1. Can
+you help in this case?"
+Please note, that it is the standard requirements in any good technical
+support service.
+In right case I will have the initial information about your problem and
+therefore I will be able to make something.
+
+
+8.9
+Question. Sometimes demo applications gtk-scan and gtk-demo don't work, but
+text demo apps work OK. What is a reason?
+Answer. Applications gtk-demo and gtk-scan are used a many graphical libraries.
+They are used a very aggressive method of screen refresh that some videadapters
+don't like it. Try to run these samples on other computer maybe with other
+videoadapter. It is planning to write new samples xscan and xdemo with the same
+functionality, but with using only of Xlib and Xtoolkit.
+
+
+8.10 
+Question. Are compatible Windows SDK и Linux/Unix SDK?
+Answer. Windows SDK (Jan-2006) and Linux/Unix SDK are used just the same 
+algorithm, therefore they must be compatible. But Windows SDK developers
+are added 3 extra bytes for template/model storage (2 bytes - length, 1 byte
+- number of models). You must write your own applications carefully if you
+plan to use Windows and Linux/Unix SDK together.
+
+
+8.11 
+Question. Is supported FtrScanAPI functions for Unix?
+Answer. Beginning from BFPSDK 2.1 (also CI-SDK) almost all functions
+of FtrScanAPI interface for Unix platforms. It allows to use the same code
+for Windows and Unix. But now on Unix platforms it is possible to work
+with one scanner by using of FtrScanAPI functions. The FtrScanAPI
+documentation could be asked from Futronic 
+
+
+
+Q.8.12 
+Question. Is supported LiveFingerDetection (LFD) option?
+Answer. BFPSDK/CISDK has by default a good algoritm to reject a fake finger.
+But if SDK has the FtrScanAPI function then it is possible to turn on
+the LFD option for functions bfp_get_image_timeo and bfp_get_image_timeo_r.
+
+
+
+
+
+9. Capture Image SDK (CI-SDK)
+
+Capture Image SDK (CI-SDK) can be used by those developers who need only
+to work with scanner's captured image and plan to use the own biometric
+algorithms. A given SDK is followed the same ideas of simplicity and
+universality as package BFPSDK. CI-SDK contains the demo samples. This
+package have the two versions:
+1) as supplement package for BFPSDK package;
+2) as separate packages independently of BFPSDK package;
+
+The CI-SDK is contained the following demo samples:
+
+ci-get-raw-image           --  read "raw" image using light dose command
+ci-get-diodes-state        --  get current state of green and red diodes
+ci-set-diodes-state        --  set new state for green and red diodes
+ci-get-fp-image            --  get fingerprint image
+ci-get-fp-image-lfd        --  get fingerprint image with LFD option
+
+
+
+Functions. 
+
+Name                       Purpose
+---------------------      ---------------------------------------
+ci_get_image_size          get image size
+ci_get_raw_image           read raw image using light dose command
+ci_get_diodes_state        get current diodes state (green/red)
+ci_set_diodes_state        set new state of diodes (green/red)
+
+
+
+Detail description of each function.
+
+
+----------------
+
+Get an image size for one captured image.
+unsigned long int ci_get_image_size( void );
+
+Parameters:
+None.
+
+Returned values:  image size (in bytes)
+
+This function gives simple and fastly a value of memory size for
+one captured image.
+This function is internally reenterable.
+
+
+----------------
+
+Read raw image using light dose command.
+int ci_get_raw_image( const unsigned char cmd_op, unsigned char * buf, 
+                      unsigned long int bufsize, unsigned long int sernum );
+
+Parameters:
+const unsigned char cmd_op - light dose (0-4)
+unsigned char * buf - memory buffer for image
+unsigned long int bufsize - buffer size (in bytes)
+unsigned long int sernum  - scanner's serial number (0=first found)
+
+Returned values: 0 = success, <0 = error
+
+Function reads the image from the scanner independently finger's presence
+on plate of scanner. The image can be lighten with a dose command (cmd_op).
+Dose 0 - dark dose (absense of light). Doses from 1 up to 3 - turn on light
+(1=min, 4=max). The programmer can select the wanted doses for a work.
+The buffer's size must be no less than the value from the function
+ci_get_image_size(). This function has a minimal checks for input
+parameters.
+This function is internally reenterable.
+
+
+----------------
+
+Get current diodes state.
+int ci_get_diodes_state( unsigned char * green_diode, unsigned char * red_diode,
+                         unsigned long int sernum );
+
+Parameters:
+unsigned char * green_diode - pointer to variable to store of current
+                              state for "green light"
+                              (0=off, 1=on)
+unsigned char * red_diode   - pointer to variable to store of current
+                              state for "red light"
+                              (0=off, 1=on)
+unsigned long int sernum    - scanner's serial number (0=first found)
+
+Returned values: 0 = success, <0 = error
+
+This function returns the current state of diodes (greena and red).
+This function is internally reenterable.
+
+
+----------------
+
+Set new state of diodes.
+int ci_set_diodes_state( unsigned char green_diode, unsigned char red_diode, 
+                         unsigned long int sernum );
+
+Parameters:
+unsigned char green_diode   - new value for diode "green light"
+                              (0=off, 255=on, 1-254=on for time interval
+                              in 10-ms units)
+unsigned char red_diode     - new value for diode "red light"
+                              (0=off, 255=on, 1-254=on for time interval
+                              in 10-ms units)
+unsigned long int sernum    - scanner's serial number (0=first found)
+
+Returned values: 0 = success, <0 = error
+
+This function sets the new state for diodes (green and red). The value 255
+turns on the diode for some seconds only, but not a forever (this is a
+hardware implementation).
+This function is internally reenterable.
+
+
+
+
+10. Equivalence BFPSDK functions and FtrScanAPI (Microsoft Windows)
+
+The below you can found the list of FtrScanAPI functions and
+the functional equivalence provided by BFPSDK.
+
+
+----------------
+
+Function: ftrScanOpenDevice
+Purpose:  The function opens device on the default interface.
+BFPSDK:   Internally implemented for required functions 
+
+
+----------------
+
+Function: ftrScanCloseDevice
+Purpose:  The function closes an open device handle.
+BFPSDK:   Internally implemented for required functions 
+
+
+----------------
+
+Function: ftrScanGetInterfaces
+Purpose:  The function returns the device status for each interface.
+BFPSDK:   bfp_get_hardware_info
+
+
+----------------
+
+Function: ftrSetBaseInterface
+Purpose:  The function sets the new default interface number.
+BFPSDK:   Internally implemented for required functions 
+
+
+----------------
+
+Function: ftrGetBaseInterfaceNumber
+Purpose:  The function returns the default interface number.
+BFPSDK:   Internally implemented for required functions 
+
+
+----------------
+
+Function: ftrScanOpenDeviceOnInterface
+Purpose:  The function opens device on the selected interface.
+BFPSDK:   Internally implemented for required functions 
+
+
+----------------
+
+Function: ftrScanSetOptions
+Purpose:  The function changes the handle specific options.
+BFPSDK:   Internally implemented in bfp_get_image_timeo,bfp_get_image_timeo_r
+
+
+----------------
+
+Function: ftrScanGetOptions
+Purpose:  The function retrieves the handle specific options.
+BFPSDK:   Internally implemented in bfp_get_image_timeo,bfp_get_image_timeo_r
+
+
+----------------
+
+Function: ftrScanGetDeviceInfo
+Purpose:  The function retrieves the device specific information.
+BFPSDK:   bfp_get_hardware_info
+
+
+----------------
+
+Function: ftrScanGetImageSize
+Purpose:  The function retrieves the image size.
+BFPSDK:   ci_get_image_size, bfp_get_software_info
+
+
+----------------
+
+Function: ftrScanGetImage
+Purpose:  The function captures a raw image from the device.
+BFPSDK:   ci_get_raw_image
+
+
+----------------
+
+Function: ftrScanGetDarkImage
+Purpose:  The function captures a raw image from the device without any 
+          internal illumination.
+BFPSDK:   ci_get_raw_image with CI_READ_IMAGE_ON_DOSE_0
+
+
+----------------
+
+Function: ftrScanIsFingerPresent
+Purpose:  The function returns a Boolean value that indicates whether 
+          the fingerprint is present on the device.
+BFPSDK:   Internally implemented in bfp_get_image_timeo,bfp_get_image_timeo_r
+
+
+----------------
+
+Function: ftrScanGetFrame
+Purpose:  The function captures a fingerprint frame from the device.
+BFPSDK:   bfp_get_image_timeo, bfp_get_image_timeo_r
+
+
+----------------
+
+Function: ftrScanSave7Bytes
+Purpose:  The function stores a 7-bytes length buffer on the device.
+BFPSDK:   Internally implemented (bfp_set_device_sernum)
+
+
+----------------
+
+Function: ftrScanRestore7Bytes
+Purpose:  The function restores a 7-bytes length buffer from the device.
+BFPSDK:   Internally implemented (bfp_get_device_sernum)
+
+
+----------------
+
+Function: ftrScanSetNewAuthorizationCode
+Purpose:  The ftrScanSetNewAuthorizationCode stores the authorization code 
+          to use with ftrScanSaveSecret7Bytes/ftrScanRestoreSecret7Bytes 
+          functions.
+BFPSDK:   Not implemented
+
+
+----------------
+
+Function: ftrScanSaveSecret7Bytes
+Purpose:  The function stores a 7-bytes length buffer on the device.
+BFPSDK:   Not implemented
+
+
+----------------
+
+Function: ftrScanRestoreSecret7Bytes
+Purpose:  The function restores a 7-bytes length buffer from the device.
+BFPSDK:   Not implemented
+
+
+----------------
+
+Function: ftrScanSetDiodesStatus
+Purpose:  The sets new status to green and red gimmick diodes.
+BFPSDK:   ci_set_diodes_state
+
+
+----------------
+
+Function: ftrScanGetDiodesStatus
+Purpose:  The returns current status of green and red gimmick diodes.
+BFPSDK:   ci_get_diodes_state
+
+
+
+
+11. Some programming condiderations for Futronic scanner
+    for Unix and Microsoft Windows platforms
+
+
+11.1 The command execution protection feature.
+
+The Futronic scanner has the command execution protection feature.
+This means that after a command receiving the scanner's firmware
+runs an internal watchdog timer for purpose of the data phase transfer 
+timeout interval. If data are transferred before this timeout occurred
+then a timer is stopped. If no full data transfer is completed then
+a firmware deattaches the scanner from the USB bus, waits some time and
+attaches again to USB bus. This is the same effectively as a manual
+method: remove the device from USB port and attach the device to USB port
+again.
+This feature was added due the following reasons:
+(1) application software problems
+    (for example, programmers forget to read a data full block,i.e. all image)
+(2) system software problems
+    (many operating systems have a different USB stack implementations,
+     which have a miscellaneous bugs)
+
+
+11.2. Serialized access to the USB scanner
+
+Any access to the USB scanner must be serialized. The scanner's firmware
+don't have the internal queue and can execute only one command at a time.
+Therefore a system or application programmer must be developed a matching
+discipline to access a hardware from a system or application software.
+For example, on Microsoft Windows platform it is recommended to use 
+the mutex (binary semaphore). On the Unix platforms it is possible to
+use the System V or Posix semaphores. A such technique will be hardly serialize
+the hardware access from the different applications or the parts of the
+programs (for example, threads).
+
+
+
+11.3. Multi-threaded applications
+
+If biometric SDK don't have the effective serialized access to the device 
+then the application must be used the own correct implemented discipline of 
+the serialized access to the scanner. This discipline will be prevented
+the simultaneous access to the device from many threads.
+For example, Unix/Linux SDK don't have a such blocking discipline and therefore
+the application programmers must be used the own discipline of requests to 
+the scanner (usually it is to read an image). The programmer can be used the 
+standard Posix semaphores to build the own discipline. 
+(In Unix SDK 1.x,2.x see "7. Additions and limitations" for some details)
+If you are developed and also are tested your applications without a such
+access discipline you must see always many strange things of your code 
+behaviour due a simultaneous access to hardware from the different threads 
+(commands meshing)  and maybe the incorrect timing synchronization between 
+the program's parts, and the partial data reading instead a full data reading.
+
+
+
+11.4. Parallel applications
+
+Same considerations can be used for parallel applications as for multithreaded
+applications because the hardware access nature is just the same.
+

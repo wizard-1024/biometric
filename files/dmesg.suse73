@@ -1,0 +1,286 @@
+Linux version 2.4.10-64GB-SMP (root@SMP_X86.suse.de) (gcc version 2.95.3 20010315 (SuSE)) #1 SMP Fri Sep 28 17:26:36 GMT 2001
+BIOS-provided physical RAM map:
+ BIOS-e820: 0000000000000000 - 000000000009fc00 (usable)
+ BIOS-e820: 000000000009fc00 - 00000000000a0000 (reserved)
+ BIOS-e820: 00000000000f0000 - 0000000000100000 (reserved)
+ BIOS-e820: 0000000000100000 - 000000003fff0000 (usable)
+ BIOS-e820: 000000003fff0000 - 000000003fff3000 (ACPI NVS)
+ BIOS-e820: 000000003fff3000 - 0000000040000000 (ACPI data)
+ BIOS-e820: 00000000fec00000 - 0000000100000000 (reserved)
+127MB HIGHMEM available.
+found SMP MP-table at 000f5b20
+hm, page 000f5000 reserved twice.
+hm, page 000f6000 reserved twice.
+hm, page 000f1000 reserved twice.
+hm, page 000f2000 reserved twice.
+On node 0 totalpages: 262128
+zone(0): 4096 pages.
+zone(1): 225280 pages.
+zone(2): 32752 pages.
+Intel MultiProcessor Specification v1.4
+    Virtual Wire compatibility mode.
+OEM ID: OEM00000 Product ID: PROD00000000 APIC at: 0xFEE00000
+Processor #0 Pentium(tm) Pro APIC version 17
+Processor #1 Pentium(tm) Pro APIC version 17
+I/O APIC #2 Version 17 at 0xFEC00000.
+Processors: 2
+Kernel command line: auto BOOT_IMAGE=linux ro root=1605 BOOT_FILE=/boot/vmlinuz enableapic hdb=ide-scsi
+ide_setup: hdb=ide-scsi
+Initializing CPU#0
+Detected 1002.281 MHz processor.
+Console: colour VGA+ 80x25
+Calibrating delay loop... 1998.84 BogoMIPS
+Memory: 1028680k/1048512k available (1390k kernel code, 19444k reserved, 392k data, 128k init, 131008k highmem)
+Dentry-cache hash table entries: 131072 (order: 8, 1048576 bytes)
+Inode-cache hash table entries: 65536 (order: 7, 524288 bytes)
+Mount-cache hash table entries: 16384 (order: 5, 131072 bytes)
+Buffer-cache hash table entries: 65536 (order: 6, 262144 bytes)
+Page-cache hash table entries: 262144 (order: 8, 1048576 bytes)
+CPU: Before vendor init, caps: 0383fbff 00000000 00000000, vendor = 0
+CPU: L1 I cache: 16K, L1 D cache: 16K
+CPU: L2 cache: 256K
+Intel machine check architecture supported.
+Intel machine check reporting enabled on CPU#0.
+CPU: After vendor init, caps: 0383fbff 00000000 00000000 00000000
+CPU:     After generic, caps: 0383fbff 00000000 00000000 00000000
+CPU:             Common caps: 0383fbff 00000000 00000000 00000000
+Enabling fast FPU save and restore... done.
+Enabling unmasked SIMD FPU exception support... done.
+Checking 'hlt' instruction... OK.
+POSIX conformance testing by UNIFIX
+mtrr: v1.40 (20010327) Richard Gooch (rgooch@atnf.csiro.au)
+mtrr: detected mtrr type: Intel
+CPU: Before vendor init, caps: 0383fbff 00000000 00000000, vendor = 0
+CPU: L1 I cache: 16K, L1 D cache: 16K
+CPU: L2 cache: 256K
+Intel machine check reporting enabled on CPU#0.
+CPU: After vendor init, caps: 0383fbff 00000000 00000000 00000000
+CPU:     After generic, caps: 0383fbff 00000000 00000000 00000000
+CPU:             Common caps: 0383fbff 00000000 00000000 00000000
+CPU0: Intel Pentium III (Coppermine) stepping 06
+per-CPU timeslice cutoff: 731.04 usecs.
+enabled ExtINT on CPU#0
+ESR value before enabling vector: 00000000
+ESR value after enabling vector: 00000000
+Booting processor 1/1 eip 2000
+Initializing CPU#1
+masked ExtINT on CPU#1
+ESR value before enabling vector: 00000000
+ESR value after enabling vector: 00000000
+Calibrating delay loop... 1998.84 BogoMIPS
+CPU: Before vendor init, caps: 0383fbff 00000000 00000000, vendor = 0
+CPU: L1 I cache: 16K, L1 D cache: 16K
+CPU: L2 cache: 256K
+Intel machine check reporting enabled on CPU#1.
+CPU: After vendor init, caps: 0383fbff 00000000 00000000 00000000
+CPU:     After generic, caps: 0383fbff 00000000 00000000 00000000
+CPU:             Common caps: 0383fbff 00000000 00000000 00000000
+CPU1: Intel Pentium III (Coppermine) stepping 06
+Total of 2 processors activated (3997.69 BogoMIPS).
+ENABLING IO-APIC IRQs
+...changing IO-APIC physical APIC ID to 2 ... ok.
+init IO_APIC IRQs
+ IO-APIC (apicid-pin) 2-0, 2-16, 2-17, 2-18, 2-19, 2-20, 2-21, 2-22, 2-23 not connected.
+..TIMER: vector=0x31 pin1=2 pin2=0
+number of MP IRQ sources: 21.
+number of IO-APIC #2 registers: 24.
+testing the IO APIC.......................
+
+IO APIC #2......
+.... register #00: 02000000
+.......    : physical APIC id: 02
+.... register #01: 00178011
+.......     : max redirection entries: 0017
+.......     : IO APIC version: 0011
+ WARNING: unexpected IO-APIC, please mail
+          to linux-smp@vger.kernel.org
+.... register #02: 00000000
+.......     : arbitration: 00
+.... IRQ redirection table:
+ NR Log Phy Mask Trig IRR Pol Stat Dest Deli Vect:   
+ 00 000 00  1    0    0   0   0    0    0    00
+ 01 003 03  0    0    0   0   0    1    1    39
+ 02 003 03  0    0    0   0   0    1    1    31
+ 03 003 03  0    0    0   0   0    1    1    41
+ 04 003 03  0    0    0   0   0    1    1    49
+ 05 003 03  1    1    0   1   0    1    1    51
+ 06 003 03  0    0    0   0   0    1    1    59
+ 07 003 03  0    0    0   0   0    1    1    61
+ 08 003 03  0    0    0   0   0    1    1    69
+ 09 003 03  1    1    0   1   0    1    1    71
+ 0a 003 03  1    1    0   1   0    1    1    79
+ 0b 003 03  1    1    0   1   0    1    1    81
+ 0c 003 03  0    0    0   0   0    1    1    89
+ 0d 003 03  0    0    0   0   0    1    1    91
+ 0e 003 03  0    0    0   0   0    1    1    99
+ 0f 003 03  0    0    0   0   0    1    1    A1
+ 10 000 00  1    0    0   0   0    0    0    00
+ 11 000 00  1    0    0   0   0    0    0    00
+ 12 000 00  1    0    0   0   0    0    0    00
+ 13 000 00  1    0    0   0   0    0    0    00
+ 14 000 00  1    0    0   0   0    0    0    00
+ 15 000 00  1    0    0   0   0    0    0    00
+ 16 000 00  1    0    0   0   0    0    0    00
+ 17 000 00  1    0    0   0   0    0    0    00
+IRQ to pin mappings:
+IRQ0 -> 0:2
+IRQ1 -> 0:1
+IRQ3 -> 0:3
+IRQ4 -> 0:4
+IRQ5 -> 0:5
+IRQ6 -> 0:6
+IRQ7 -> 0:7
+IRQ8 -> 0:8
+IRQ9 -> 0:9
+IRQ10 -> 0:10
+IRQ11 -> 0:11
+IRQ12 -> 0:12
+IRQ13 -> 0:13
+IRQ14 -> 0:14
+IRQ15 -> 0:15
+.................................... done.
+Using local APIC timer interrupts.
+calibrating APIC timer ...
+..... CPU clock speed is 1002.2843 MHz.
+..... host bus clock speed is 133.6377 MHz.
+cpu: 0, clocks: 1336377, slice: 445459
+CPU0<T0:1336368,T1:890896,D:13,S:445459,C:1336377>
+cpu: 1, clocks: 1336377, slice: 445459
+CPU1<T0:1336368,T1:445440,D:10,S:445459,C:1336377>
+checking TSC synchronization across CPUs: passed.
+mtrr: your CPUs had inconsistent variable MTRR settings
+mtrr: probably your BIOS does not setup all CPUs
+PCI: PCI BIOS revision 2.10 entry at 0xfb2c0, last bus=1
+PCI: Using configuration type 1
+PCI: Probing PCI hardware
+Unknown bridge resource 0: assuming transparent
+PCI: Using IRQ router VIA [1106/0686] at 00:07.0
+PCI->APIC IRQ transform: (B0,I7,P3) -> 10
+PCI->APIC IRQ transform: (B0,I7,P3) -> 10
+PCI->APIC IRQ transform: (B0,I12,P0) -> 11
+PCI->APIC IRQ transform: (B0,I14,P0) -> 9
+PCI->APIC IRQ transform: (B0,I15,P0) -> 5
+PCI->APIC IRQ transform: (B0,I16,P0) -> 11
+PCI->APIC IRQ transform: (B0,I17,P0) -> 10
+PCI->APIC IRQ transform: (B1,I0,P0) -> 9
+PCI: Enabling Via external APIC routing
+Linux NET4.0 for Linux 2.4
+Based upon Swansea University Computer Society NET3.039
+Initializing RT netlink socket
+apm: BIOS version 1.2 Flags 0x07 (Driver version 1.14)
+apm: disabled - APM is not SMP safe.
+Starting kswapd
+allocated 32 pages and 32 bhs reserved for the highmem bounces
+VFS: Diskquotas version dquot_6.5.0 initialized
+pty: 256 Unix98 ptys configured
+Serial driver version 5.05c (2001-07-08) with HUB-6 MANY_PORTS MULTIPORT SHARE_IRQ SERIAL_PCI enabled
+ttyS00 at 0x03f8 (irq = 4) is a 16550A
+ttyS01 at 0x02f8 (irq = 3) is a 16550A
+Real Time Clock Driver v1.10e
+block: 128 slots per queue, batch=16
+RAMDISK driver initialized: 16 RAM disks of 64000K size 1024 blocksize
+Uniform Multi-Platform E-IDE driver Revision: 6.31
+ide: Assuming 33MHz system bus speed for PIO modes; override with idebus=xx
+VP_IDE: IDE controller on PCI bus 00 dev 39
+VP_IDE: chipset revision 6
+VP_IDE: not 100% native mode: will probe irqs later
+VP_IDE: VIA vt82c686b (rev 40) IDE UDMA100 controller on pci00:07.1
+    ide0: BM-DMA at 0xc000-0xc007, BIOS settings: hda:DMA, hdb:DMA
+    ide1: BM-DMA at 0xc008-0xc00f, BIOS settings: hdc:DMA, hdd:pio
+PDC20265: IDE controller on PCI bus 00 dev 60
+PDC20265: chipset revision 2
+ide: Found promise 20265 in RAID mode.
+PDC20265: not 100% native mode: will probe irqs later
+PDC20265: (U)DMA Burst Bit ENABLED Primary MASTER Mode Secondary MASTER Mode.
+    ide2: BM-DMA at 0xdc00-0xdc07, BIOS settings: hde:pio, hdf:pio
+    ide3: BM-DMA at 0xdc08-0xdc0f, BIOS settings: hdg:pio, hdh:pio
+hda: IC35L040AVER07-0, ATA DISK drive
+hdb: _NEC NR-7700A, ATAPI CD/DVD-ROM drive
+hdc: IC35L060AVER07-0, ATA DISK drive
+ide0 at 0x1f0-0x1f7,0x3f6 on irq 14
+ide1 at 0x170-0x177,0x376 on irq 15
+hda: 80418240 sectors (41174 MB) w/1916KiB Cache, CHS=5005/255/63, UDMA(100)
+hdc: 120103200 sectors (61493 MB) w/1916KiB Cache, CHS=119150/16/63, UDMA(100)
+ide-floppy driver 0.97.sv
+Partition check:
+ hda: hda1 hda2 < hda5 hda6 hda7 > hda3 hda4
+ hda3: <bsd: hda8 hda9 hda10 hda11 >
+ hdc: [PTBL] [7476/255/63] hdc1 < hdc5 hdc6 hdc7 > hdc2 hdc3 hdc4
+Floppy drive(s): fd0 is 1.44M
+FDC 0 is a post-1991 82077
+loop: loaded (max 8 devices)
+ide-floppy driver 0.97.sv
+SCSI subsystem driver Revision: 1.00
+request_module[scsi_hostadapter]: Root fs not mounted
+request_module[scsi_hostadapter]: Root fs not mounted
+md: md driver 0.90.0 MAX_MD_DEVS=256, MD_SB_DISKS=27
+md: Autodetecting RAID arrays.
+md: autorun ...
+md: ... autorun DONE.
+NET4: Linux TCP/IP 1.0 for NET4.0
+IP Protocols: ICMP, UDP, TCP, IGMP
+IP: routing cache hash table of 8192 buckets, 64Kbytes
+TCP: Hash tables configured (established 262144 bind 65536)
+Linux IP multicast router 0.06 plus PIM-SM
+NET4: Unix domain sockets 1.0/SMP for Linux NET4.0.
+RAMDISK: Compressed image found at block 0
+Uncompressing...................................................done.
+Freeing initrd memory: 532k freed
+VFS: Mounted root (ext2 filesystem).
+scsi0 : SCSI host adapter emulation for IDE ATAPI devices
+  Vendor: _NEC      Model: NR-7700A          Rev: 1.01
+  Type:   CD-ROM                             ANSI SCSI revision: 02
+Attached scsi CD-ROM sr0 at scsi0, channel 0, id 0, lun 0
+sr0: scsi3-mmc drive: 32x/32x writer cd/rw xa/form2 cdda tray
+Uniform CD-ROM driver Revision: 3.12
+FAT: bogus logical sector size 5376
+FAT: bogus logical sector size 5376
+reiserfs: checking transaction log (device 16:05) ...
+Warning, log replay starting on readonly filesystem
+Using r5 hash to sort names
+reiserfs: using 3.5.x disk format
+ReiserFS version 3.6.25
+VFS: Mounted root (reiserfs filesystem) readonly.
+change_root: old root has d_count=2
+Trying to unmount old root ... okay
+Freeing unused kernel memory: 128k freed
+Adding Swap: 369484k swap-space (priority 42)
+ip_tables: (c)2000 Netfilter core team
+ip_conntrack (8191 buckets, 65528 max)
+Linux Tulip driver version 0.9.15-pre6 (July 2, 2001)
+tulip0: no phy info, aborting mtable build
+eth0: Macronix 98715 PMAC rev 37 at 0xe800, 00:80:AD:70:D5:1A, IRQ 5.
+eepro100.c:v1.09j-t 9/29/99 Donald Becker http://cesdis.gsfc.nasa.gov/linux/drivers/eepro100.html
+eepro100.c: $Revision: 1.36 $ 2000/11/17 Modified by Andrey V. Savochkin <saw@saw.sw.com.sg> and others
+eth1: PCI device 8086:1229, 00:02:B3:4C:A2:5B, IRQ 10.
+  Board assembly 751767-004, Physical connectors present: RJ45
+  Primary interface chip i82555 PHY #1.
+    Secondary interface chip i82555.
+  General self-test: passed.
+  Serial sub-system self-test: passed.
+  Internal registers self-test: passed.
+  ROM checksum self-test: passed (0x3258698e).
+usb.c: registered new driver usbdevfs
+usb.c: registered new driver hub
+uhci.c: USB UHCI at I/O 0xc400, IRQ 10
+usb.c: new USB bus registered, assigned bus number 1
+hub.c: USB hub found
+hub.c: 2 ports detected
+uhci.c: USB UHCI at I/O 0xc800, IRQ 10
+usb.c: new USB bus registered, assigned bus number 2
+hub.c: USB hub found
+hub.c: 2 ports detected
+uhci.c: :USB Universal Host Controller Interface driver
+hub.c: USB new device connect on bus1/1, assigned device number 2
+usb.c: USB device 2 (vend/prod 0x46d/0xd001) is not claimed by any active driver.
+hub.c: USB new device connect on bus1/2, assigned device number 3
+hub.c: USB hub found
+hub.c: 4 ports detected
+hub.c: USB new device connect on bus1/2/1, assigned device number 4
+usb.c: USB device 4 (vend/prod 0x1491/0x20) is not claimed by any active driver.
+IPv6 v0.8 for NET4.0
+IPv6 over IPv4 tunneling driver
+hub.c: USB new device connect on bus2/2, assigned device number 2
+usb.c: USB device 2 (vend/prod 0x5e3/0x502) is not claimed by any active driver.
+eth0: no IPv6 routers present
+eth1: no IPv6 routers present

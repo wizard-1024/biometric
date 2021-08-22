@@ -1,0 +1,278 @@
+Copyright (c) 2004 Dmitry Stefankov 
+Date:   May 2004
+Version: 1.1
+
+
+PAM_BFP 
+
+PAM (Pluggable Authentication Module) module 
+using biometric authentication method to authenticate user
+
+
+
+1. General description
+
+A PAM_BFP module is a real PAM module to use in any Linux/Unix
+platform as a new user authentication module based on a modern biometric
+fingerprint technology. PAM_BFP is developed and must be used with BFP SDK. 
+PAM_BFP module is free without any limitations and any warranties. 
+It is possible to name this module as "Unix biometric logon or login",
+but unlike Microsoft Windows biometric logons a PAM_BFP module is very easy 
+to install, use, and customize according the standard Unix way.
+
+Specal notes.
+Package was tested on the following platforms:
+FreeBSD 4.9
+RedHat Linux 6.2
+RedHat Linux 9.0
+Suse Linux 6.3
+Suse Linux 7.3
+Mandrake Linux 9.1
+Debian Linux 2.2
+
+
+2. Contents of packages
+
+remote_scanner.c --  remote access to acquire a biometric model from
+                     locally attached scanner. A main idea is to use
+                     one scanner instead multiple in server rooms and etc.
+maketmpl.c       --  simple administrative program to build template
+                     for a given user. This template file can be add into
+                     templates catalog for further authentication of this
+                     user. 
+cryptcode.c      --  encrypt/decrypt a user's template (Blowfish/OpenSSL)
+cryptcode.h      --  functions definitions of crypt code  		    
+netcode.c        --  supplemental network code for other programs
+netcode.h        --  functions definitions of network code
+pam_bfp.c        --  PAM_BFP module itself
+pam_demo.c       --  simple demo application how to use PAM
+makefile.unx     --  build makefile for PAM_BFP
+readme.eng       --  this file (documentation in English)
+readme.rus       --  same file (documentation in Russian)
+
+config          --  catalog with sample configuration files and OpenSSL certs/keys
+freebsd         --  samples for PAM configuration on FreeBSD platform
+linux           --  samples for PAM configuration on Linux platform
+lock_fp         --  lock terminal with added biometric authentication (FreeBSD)
+
+
+3. Build
+
+To get help on makefile:
+# make -f makefile.unx help
+
+To build all:
+# make -f makefile.unx
+
+To generate server certifacte, otherwise use standard steps in OpenSSL:
+# make -f makefile.unx certs
+
+Notes.
+During build you can disable the OpenSSL support by setting in makefile.unx
+__CRYPT__=0 and __SSL__=0 and commenting of line SSL_LIBS= .
+
+
+4. Installation
+
+To install shared PAM_BFP module for Linux (generic):
+# make -f makefile.unx install-lnx
+
+To install shared PAM_BFP module for Linux (Debian):
+# make -f makefile.unx install-debian
+
+To install shared PAM_BFP module for FreeBSD:
+# make -f makefile.unx install-bsd
+
+Create catalog, for example, /usr/local/etc/auth_pam_bfp 
+(this is a default catalog for PAM_BFP).
+
+Make sure that only a super-user owns this catalog, for example:
+# chown u=rwx,go=-rwx /usr/local/etc/auth_pam_bfp
+
+Build template for wanted user:
+# ./maketmpl username.tmpl
+
+Please note all template files must have .tmpl extension.
+Copy this template into our catalog.
+Repeat same steps for all wanted users.
+
+To encrypt on built-in key use: 
+# ./maketmpl -k username.tmpl
+
+To encrypt on passphrase use:
+# ./maketmpl -p username.tmpl
+
+
+Copy sample configuration into same catalog and edit now.
+Syntax is described in a sample config file.
+
+For authentication using local scanner you can use these lines:
+local=1 timeout=4 level=300 account=root users="name1 name2"
+local=1 timeout=4 level=300 account=admin users="name3"
+
+Explanations:
+local=1               use local hardware
+timeout=4             4-second timeout during image acquiring from scanner
+                      (0=no timeout at all)
+level=300             biometric measure level. This is low level.
+                      Recommended value is 600 or higher.
+account=root          real Unix account name
+users="name1 name2"   list of names of user template files (without extension)
+
+For authentication using remote scanner you can use these lines:
+local=0 timeout=4 level=300 account=root users="name1 name2" device=192.168.0.5 dport=5775 clients="computer1 computer2"
+local=0 timeout=4 level=300 account=admin users="name3" device=testme ssl=1 decrypt=1
+
+Explanations for additional fields:
+device=192.168.0.5    server name or IP address. On this machine is attached
+                      scanner and remote computers can get template by
+                      scanning image on this local scanner. 
+dport=5775            TCP port to connect to server
+clients="computer1 computer2"
+                      list of allowed remote computers to use service.
+                      It is very recommended.
+ssl=1                 Turn on support of SSL protocol,
+                      but server must be running with SSL support.
+                      It is very recommended. 
+		      (By default, server accepted unencrypted connections
+		      on port 5575, and SSL connections on port 5576)
+decrypt=1             Use built-in key to decrypt template during authentication.
+
+Now see samples for our platform to modify PAM configuration.
+The short guidelines for biometric login enabled can be the following.
+For FreeBSD you must add this line into /etc/pam.conf 
+before other login lines:
+login auth sufficient pam_bfp.so debug fp_prompt=1
+To disable our login it is enough to comment this line.
+
+Now you can run a sample:
+#./pam_demo test-account-name
+During a run put your finger on scanner 
+(you must see prompt if you add fp_prompt directive).
+If your template was in our database and <test-account-name> contains
+<users> list with your template name then you must be successfully
+authenticated.
+It's recommended to make this step to verify that you made a good template,
+otherwise please build a new template.
+
+
+And now go into a real life.
+Switch to another console. Logoff. Enter account name from your
+configuration file. Put finger on scanner. You have only N seconds (timeout
+value) to scan image. If all ok then you must be logged. Otherwise,
+you will be promped for password according PAM modular logic.
+In this case look authlog (PAM directive debug forces a module to
+write a detail debugging log) and check your directives or maybe
+repeat process again. Sometimes a problem is in a bad recognition of
+your fingerprint or bad learning.
+
+Use debug directive during first time of biometric login using. Later
+this directive can be turned off.
+
+Strong 2-factor user authentication can be done by this way:
+login auth required pam_bfp.so
+
+Be careful for this case. Damage of user templates will be blocked an user
+access to computer and this problem will be resolved only in
+administrative mode (single-user mode).
+
+For Linux platforms see samples in samples catalog.
+
+
+Remote access to local scanner.
+Generate and add (or use supplied) certs/keys into config catalog.
+Edit configuration file to enable remote access on machine with
+a biometric authentication.
+Run remote_scanner on remote computer: 
+# ./remote_scanner -d 1 -v    (test console mode)
+# ./remote_scanner -Dv        (standard daemon mode)
+Use -h to get online help for remote_scanner.
+
+Test your settings and enjoy.
+Key idea is that you want to authenticate on first computer(A), to use
+a scanner on second computer (B), and to log on first computer from third
+computer (C).
+
+
+5. Notes
+
+You can use the PAM logic almost for all standard applications and maybe
+other applications (for example, see pam-demo).
+
+For example, SSH can get strong authentication using PAM_BFP module.
+Like login add the wanted line for ssh PAM section.
+For example, now it is possible to use PUTTY (popular Windows client) with
+biometric authentication using remote access to local scanner.
+Select SSH2 protocol in PUTTY settings for this session. 
+Modify line with remote access to enable the biometric authentication for
+the Windows computer with the PUTTY client.
+
+Remember that all authentication is only processing locally (on Unix),
+and PAM_BFP module works only locally, and remote access is mean only
+that PAM_BFP module can use a local scanner hardware (using bfpsdk.so)
+and a remote scanner hardware using remote_scanner on a remote computer.
+
+Remember that PAM don't alter a standard logic for a most applications.
+This means, for example, if you added biometric authentication for FTP server,
+then you will be checked also by PAM_BFP module, but anyway you be asked 
+for password because this is standard implementation of FTP protocol.
+
+Please read the PAM documentation on your system to avoid the common
+errors and misunderstandings.
+
+
+
+6. PAM_BFP module non-standard switches
+
+# Catalog to store templates (default=/usr/local/etc/auth_pam_bfp)
+tmpldr=some-dir   
+
+# Configuration file (default=/usr/local/etc/auth_pam_bfp/auth_bfp.conf)
+cfgfile=some-file
+
+# Display prompt to put finger on scanner
+fp_prompt=1
+
+
+
+7. PAM_BFP configuration file format (all directives)
+
+Extracted from configuration file.
+
+# local=[1|0]                  use local/remote scanner (1=default)
+# level=[1..1000]              biometric measure  (600=default)
+# timeout=[0..60]              timeout to image scan (5=default)
+# account=name                 account to authenticate (none=default)
+# users=[name1[[,| ]name2]]    users for this account (templates) (none=default)
+# device=[name|ip]             remote scanner computer (none=default)
+# dport=value                  tcp port for device server (5575=default,non-SSL) 
+#                              (5576=default,SSL) 
+# server=[name|ip]             BFPSERVER address 
+# ssport=value                 tcp port for BFPSERVER server 5400=default,non-SSL) 
+#                              (5401=default,SSL) 
+# clients=[name1[[,| ]name2]]  remote computers checked for biofp-auth (none=default)
+# ssl=[1|0]                    enable/disable SSL protocol (0=default)
+# verify=[1|0]                 verify SSL certificates (0=default)
+# decrypt=[0-2]                0=no decrypt,1=decrypt on built-in key
+#                              2=decrypt on passphrase (0=default)
+# cafile=some-file             Certifcate of Authority Centre 
+#                              (default=/usr/local/etc/auth_pam_bfp/cacert.pem)
+# certfile=some-file           Client's certificate 
+#                              (default=/usr/local/etc/auth_pam_bfp/client.pem)
+# keyfile=some-file            Client's key 
+#                              (default=/usr/local/etc/auth_pam_bfp/client.pem)
+# keypass=some-wors            Client's key passphrase to decrypt
+
+
+
+8. About cryptography
+
+Implementation of cryptography in PAM_BFP has only a demo purpose
+and cannot be recommended for seriuos and reliable usage. Main idea
+of such crypto code was to demonstrate a such possibilities using
+an OpenSSL library.
+
+
+9. Future
+
+It depends on activity on Unix/Linux user's society.

@@ -1,0 +1,98 @@
+NetBSD 1.5.2 (GENERIC) #3: Sat Aug 18 23:37:05 CEST 2001
+    he@hamster.urc.uninett.no:/usr/src/sys/arch/i386/compile/GENERIC
+cpu0: Intel Pentium/MMX (586-class), 166.20 MHz
+total memory = 65152 KB
+avail memory = 55108 KB
+using 840 buffers containing 3360 KB of memory
+BIOS32 rev. 0 found at 0xf0400
+mainbus0 (root)
+pci0 at mainbus0 bus 0: configuration mode 1
+pci0: i/o space, memory space enabled
+pchb0 at pci0 dev 0 function 0
+pchb0: Intel 82439HX System Controller (TXC) (rev. 0x03)
+pcib0 at pci0 dev 7 function 0
+pcib0: Intel 82371SB PCI-to-ISA Bridge (PIIX3) (rev. 0x01)
+pciide0 at pci0 dev 7 function 1: Intel 82371SB IDE Interface (PIIX3) (rev. 0x00)
+pciide0: bus-master DMA support present
+pciide0: primary channel wired to compatibility mode
+wd0 at pciide0 channel 0 drive 0: <QUANTUM FIREBALLP AS20.5>
+wd0: drive supports 16-sector pio transfers, lba addressing
+wd0: 19595 MB, 16383 cyl, 16 head, 63 sec, 512 bytes/sect x 40132503 sectors
+wd0: 32-bit data port
+wd0: drive supports PIO mode 4, DMA mode 2, Ultra-DMA mode 5
+pciide0: primary channel interrupting at irq 14
+wd0(pciide0:0:0): using PIO mode 4, DMA mode 2 (using DMA data transfers)
+pciide0: secondary channel wired to compatibility mode
+atapibus0 at pciide0 channel 1
+cd0 at atapibus0 drive 0: <CREATIVE CD3231E, , UC101> type 5 cdrom removable
+cd0: 32-bit data port
+cd0: drive supports PIO mode 4, DMA mode 2
+pciide0: secondary channel interrupting at irq 15
+cd0(pciide0:1:0): using PIO mode 4, DMA mode 2 (using DMA data transfers)
+uhci0 at pci0 dev 7 function 2: Intel 82371SB USB Host Controller (PIIX3) (rev. 0x01)
+uhci0: interrupting at irq 10
+usb0 at uhci0: USB revision 1.0
+uhub0 at usb0
+uhub0: Intel UHCI root hub, class 9/0, rev 1.00/1.00, addr 1
+uhub0: 2 ports with 2 removable, self powered
+tlp0 at pci0 dev 9 function 0: Macronix MX98715AEC-x Ethernet, pass 2.5
+tlp0: broken MicroWire interface detected; setting SROM size to 1Kb
+tlp0: interrupting at irq 10
+tlp0: Ethernet address 00:80:ad:70:d1:29
+tlp0: 10baseT, 10baseT-FDX, 100baseTX, 100baseTX-FDX
+ahc1 at pci0 dev 10 function 0
+ahc1: interrupting at irq 11
+ahc1: aic7880 Wide Channel A, SCSI Id=7, 16/255 SCBs
+scsibus0 at ahc1 channel 0: 16 targets, 8 luns per target
+vga1 at pci0 dev 12 function 0: ATI Technologies Mach64 GI (rev. 0x5c)
+wsdisplay0 at vga1: console (80x25, vt100 emulation)
+isa0 at pcib0
+com0 at isa0 port 0x3f8-0x3ff irq 4: ns16550a, working fifo
+com1 at isa0 port 0x2f8-0x2ff irq 3: ns16550a, working fifo
+pckbc0 at isa0 port 0x60-0x64
+pckbd0 at pckbc0 (kbd slot)
+pckbc0: using irq 1 for kbd slot
+wskbd0 at pckbd0: console keyboard, using wsdisplay0
+pms0 at pckbc0 (aux slot)
+pckbc0: using irq 12 for aux slot
+wsmouse0 at pms0 mux 0
+lpt0 at isa0 port 0x378-0x37b irq 7
+lpt2 at isa0 port 0x3bc-0x3bf: polled
+pcppi0 at isa0 port 0x61
+midi0 at pcppi0: PC speaker
+sysbeep0 at pcppi0
+isapnp0 at isa0 port 0x279: ISA Plug 'n Play device support
+npx0 at isa0 port 0xf0-0xff: using exception 16
+fdc0 at isa0 port 0x3f0-0x3f7 irq 6 drq 2
+fd0 at fdc0 drive 0: 1.44MB, 80 cyl, 2 head, 18 sec
+fd1 at fdc0 drive 1: 1.2MB, 80 cyl, 2 head, 15 sec
+isapnp0: read port 0x203
+ym0 at isapnp0 port 0x220/16,0x530/8,0x388/8,0x330/2,0x370/2 irq 5 drq 0,1
+ym0: OPL3-SA2 Sound Board : OPL3-SA3
+audio0 at ym0: full duplex, mmap
+opl0 at ym0: model OPL3
+midi1 at opl0: OPL3-SA3 Yamaha OPL3
+mpu0 at ym0
+midi2 at mpu0: OPL3-SA3 MPU-401 MIDI UART
+joy0 at isapnp0 port 0x201/1
+joy0: OPL3-SA2 Sound Board 
+joy0: joystick not connected
+biomask ef45 netmask ef45 ttymask ffc7
+scsibus0: waiting 2 seconds for devices to settle...
+ahc1: target 0 using 16bit transfers
+ahc1: target 0 synchronous at 20.0MHz, offset = 0x8
+ahc1: target 0 using tagged queuing
+sd0 at scsibus0 target 0 lun 0: <WDIGTL, ENTERPRISE, 1.91> SCSI2 0/direct fixed
+sd0: 4157 MB, 5720 cyl, 8 head, 186 sec, 512 bytes/sect x 8515173 sectors
+ugen0 at uhub0 port 1
+ugen0: vendor 0x1491 product 0x0020, rev 1.00/0.01, addr 2
+WARNING: old BSD partition ID!
+WARNING: old BSD partition ID!
+boot device: wd0
+root on wd0a dumps on wd0b
+root file system type: ffs
+wsdisplay0: screen 1 added (80x25, vt100 emulation)
+wsdisplay0: screen 2 added (80x25, vt100 emulation)
+wsdisplay0: screen 3 added (80x25, vt100 emulation)
+wsdisplay0: screen 4 added (80x25, vt100 emulation)
+wsmux1: connecting to wsdisplay0

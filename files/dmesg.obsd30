@@ -1,0 +1,75 @@
+OpenBSD 3.0 (GENERIC) #94: Thu Oct 18 14:48:27 MDT 2001
+    deraadt@i386.openbsd.org:/usr/src/sys/arch/i386/compile/GENERIC
+cpu0: F00F bug workaround installed
+cpu0: Intel Pentium/MMX ("GenuineIntel" 586-class) 208 MHz
+cpu0: FPU,V86,DE,PSE,TSC,MSR,MCE,CX8,MMX
+real mem  = 66695168 (65132K)
+avail mem = 56520704 (55196K)
+using 839 buffers containing 3436544 bytes (3356K) of memory
+mainbus0 (root)
+bios0 at mainbus0: AT/286+(1b) BIOS, date 06/12/98, BIOS32 rev. 0 @ 0xf04e0
+apm0 at bios0: Power Management spec V1.2 (BIOS mgmt disabled)
+apm0: AC on, battery charge unknown
+pcibios0 at bios0: rev. 2.1 @ 0xf0000/0xb02
+pcibios0: PCI IRQ Routing Table rev. 1.0 @ 0xf0a90/112 (5 entries)
+pcibios0: PCI Interrupt Router at 000:01:0 ("Intel 82371FB PCI-ISA" rev 0x00)
+pcibios0: PCI bus #0 is the last bus
+bios0: ROM list: 0xc0000/0x8000
+pci0 at mainbus0 bus 0: configuration mode 1 (bios)
+pchb0 at pci0 dev 0 function 0 "Intel 82439TX System" rev 0x01
+pcib0 at pci0 dev 1 function 0 "Intel 82371AB PIIX4 ISA" rev 0x01
+pciide0 at pci0 dev 1 function 1 "Intel 82371AB IDE" rev 0x01: DMA, channel 0 wired to compatibility, channel 1 wired to compatibility
+wd0 at pciide0 channel 0 drive 0: <FUJITSU MPF3102AT>
+wd0: 16-sector PIO, LBA, 9773MB, 16383 cyl, 16 head, 63 sec, 20015856 sectors
+wd0(pciide0:0:0): using PIO mode 4, Ultra-DMA mode 2
+wd1 at pciide0 channel 1 drive 0: <WDC AC28400R>
+wd1: 16-sector PIO, LBA, 8063MB, 16383 cyl, 16 head, 63 sec, 16514064 sectors
+atapiscsi0 at pciide0 channel 1 drive 1
+scsibus0 at atapiscsi0: 2 targets
+cd0 at scsibus0 targ 0 lun 0: <PIONEER, CD-ROM DR-A10X, 1.04> SCSI0 5/cdrom removable
+wd1(pciide0:1:0): using PIO mode 4, Ultra-DMA mode 2
+cd0(pciide0:1:1): using PIO mode 0, DMA mode 1
+uhci0 at pci0 dev 1 function 2 "Intel 82371AB USB" rev 0x01: irq 11
+usb0 at uhci0: USB revision 1.0
+uhub0 at usb0
+uhub0: vendor 0x0000 UHCI root hub, class 9/0, rev 1.00/1.00, addr 1
+uhub0: 2 ports with 2 removable, self powered
+"Intel 82371AB Power Mgmt" rev 0x01 at pci0 dev 1 function 3 not configured
+de0 at pci0 dev 10 function 0 "DEC 21041" rev 0x11: irq 10
+de0: 21041 [10Mb/s] pass 1.1 address 00:80:48:e8:7b:bb
+vga1 at pci0 dev 12 function 0 "S3 ViRGE" rev 0x02
+wsdisplay0 at vga1: console (80x25, vt100 emulation)
+wsdisplay0: screen 1-5 added (80x25, vt100 emulation)
+isa0 at pcib0
+isadma0 at isa0
+pckbc0 at isa0 port 0x60/5
+pckbd0 at pckbc0 (kbd slot)
+pckbc0: using irq 1 for kbd slot
+wskbd0 at pckbd0: console keyboard, using wsdisplay0
+pmsi0 at pckbc0 (aux slot)
+de0: enabling 10baseT port
+pckbc0: using irq 12 for aux slot
+wsmouse0 at pmsi0 mux 0
+pcppi0 at isa0 port 0x61
+midi0 at pcppi0: <PC speaker>
+sysbeep0 at pcppi0
+lpt0 at isa0 port 0x378/4 irq 7
+npx0 at isa0 port 0xf0/16: using exception 16
+pccom0 at isa0 port 0x3f8/8 irq 4: ns16550a, 16 byte fifo
+pccom1 at isa0 port 0x2f8/8 irq 3: ns16550a, 16 byte fifo
+fdc0 at isa0 port 0x3f0/6 irq 6 drq 2
+fd0 at fdc0 drive 0: 1.44MB 80 cyl, 2 head, 18 sec
+isapnp0 at isa0 port 0x279: read port 0x203
+ym0 at isapnp0 "OPL3-SA2 Sound Board, YMH0021, , " port 0x220/16,0x530/8,0x388/8,0x330/2,0x370/2 irq 5 drq 0,1
+midi1 at ym0: <YM MPU-401 UART>
+audio0 at ym0
+joy0 at isapnp0 "OPL3-SA2 Sound Board, YMH0022, PNPB02F, " port 0x201/1
+biomask c840 netmask cc40 ttymask dcc2
+pctr: 586-class performance counters and user-level cycle counter enabled
+dkcsum: wd0 matched BIOS disk 80
+dkcsum: wd1 matched BIOS disk 81
+root on wd1a
+rootdev=0x10 rrootdev=0x310 rawdev=0x312
+ugen0 at uhub0 port 2
+ugen0: vendor 0x1491 product 0x0020, rev 1.00/0.01, addr 2
+de0: abnormal interrupt: receive process stopped
